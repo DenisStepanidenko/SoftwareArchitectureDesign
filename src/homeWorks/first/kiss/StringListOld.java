@@ -6,6 +6,7 @@ public class StringListOld {
 
     @Override
     public String toString() {
+        System.out.println("____");
         String output = "";
         for (String s : list) {
             if (s != null) {

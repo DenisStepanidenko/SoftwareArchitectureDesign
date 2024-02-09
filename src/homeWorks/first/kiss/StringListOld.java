@@ -4,9 +4,11 @@ public class StringListOld {
     private final String[] list = new String[10];
     private int count = 0;
 
+
     @Override
     public String toString() {
         System.out.println("____");
+        System.out.println("from denis");
         String output = "";
         for (String s : list) {
             if (s != null) {

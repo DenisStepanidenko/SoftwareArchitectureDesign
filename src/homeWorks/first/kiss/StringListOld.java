@@ -9,6 +9,7 @@ public class StringListOld {
     public String toString() {
         System.out.println("____");
         System.out.println("from denis");
+        System.out.println("from matvey again");
         String output = "";
         for (String s : list) {
             if (s != null) {

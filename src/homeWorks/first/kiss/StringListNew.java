@@ -6,6 +6,7 @@ public class StringListNew {
     private final String[] list = new String[10];
     private int count = 0;
 
+
     @Override
     public String toString() {
         StringBuilder listView = new StringBuilder();

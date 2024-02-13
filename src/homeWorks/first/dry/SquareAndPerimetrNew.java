@@ -1,7 +1,6 @@
 package homeWorks.first.dry;
 
-public class SquareAndPerimetrOld {
-
+public class SquareAndPerimetrNew {
     /**
      * метод вычисляет периметр четырехугольника abcd
      *
@@ -28,6 +27,8 @@ public class SquareAndPerimetrOld {
         result = sideAB + sideBC + sideCD + sideDA;
         return true;
     }
+
+    
 
     /**
      * метод вычисляет площадь четырехугольника abcd

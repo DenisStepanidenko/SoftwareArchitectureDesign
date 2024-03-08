@@ -1,7 +1,6 @@
 package homeWorks.first.dry;
 
-public class SquareAndPerimetrOld {
-
+public class SquareAndPerimetrNew {
     /**
      * метод вычисляет периметр четырехугольника abcd
      *
@@ -9,25 +8,27 @@ public class SquareAndPerimetrOld {
      * @param b
      * @param c
      * @param d
-     * @param result - значение периметра
+     * @param result - значение периметра четырехугольника
      * @return - возвращает true, если периметр был успешно найден,
      * в противном случае возвращает false
      */
     public static boolean perimetr(Point a, Point b, Point c, Point d, Double result) {
-        // Проверим, существует ли такой четырехугольник в начале
+
+        // Сначала проверим, существует ли такой четырехугольник
         boolean flagRectangleExists = isRectanglePossible(a, b, c, d);
         if (!flagRectangleExists) {
             result = null;
             return false;
         }
 
-        double sideAB = getDistance(a, b);
-        double sideBC = getDistance(b, c);
-        double sideCD = getDistance(c, d);
-        double sideDA = getDistance(d, a);
-        result = sideAB + sideBC + sideCD + sideDA;
+        // вычислим длины сторон четырехугольника
+        var sides = getSidesAndDiagonal(a, b, c, d);
+
+        // найдем периметр
+        result = sides[0] + sides[1] + sides[2] + sides[3];
         return true;
     }
+
 
     /**
      * метод вычисляет площадь четырехугольника abcd
@@ -36,26 +37,26 @@ public class SquareAndPerimetrOld {
      * @param b
      * @param c
      * @param d
-     * @param result - значение площади
+     * @param result - значение площади четрыехугольника
      * @return - возвращает true, если площадь была успешно найдена,
      * в противном случае возвращает false
      */
 
     public static boolean Square(Point a, Point b, Point c, Point d, Double result) {
+
+        // Сначала проверим, существует ли такой четырехугольник
         boolean flagRectangleExists = isRectanglePossible(a, b, c, d);
         if (!flagRectangleExists) {
             result = null;
             return false;
         }
 
-        double sideAB = getDistance(a, b);
-        double sideBC = getDistance(b, c);
-        double sideCD = getDistance(c, d);
-        double sideDA = getDistance(d, a);
-        double sideBD = getDistance(b, d);
+        // вычислим длины сторон четырехугольника и одной его диагонали
+        var sides = getSidesAndDiagonal(a, b, c, d);
 
-        double squareFirst = Heron(sideAB, sideBD, sideDA);
-        double squareSecond = Heron(sideBC, sideCD, sideBD);
+        // теперь найдем площадь четырехугольника, используя формулу Герона
+        double squareFirst = Heron(sides[0], sides[4], sides[3]);
+        double squareSecond = Heron(sides[1], sides[2], sides[4]);
         result = squareFirst + squareSecond;
         return true;
     }
@@ -86,6 +87,26 @@ public class SquareAndPerimetrOld {
     }
 
     /**
+     * метод получает длины сторон и диагонали четрыехугольника по его четырем вершинам
+     *
+     * @param a
+     * @param b
+     * @param c
+     * @param d
+     * @return - возвращает массив с длинами сторон и диагонали четырехугольника
+     */
+    public static double[] getSidesAndDiagonal(Point a, Point b, Point c, Point d) {
+        double[] sidesAndDiagonal = new double[5];
+        sidesAndDiagonal[0] = getDistance(a, b);
+        sidesAndDiagonal[1] = getDistance(b, c);
+        sidesAndDiagonal[2] = getDistance(c, d);
+        sidesAndDiagonal[3] = getDistance(d, a);
+        sidesAndDiagonal[4] = getDistance(b, d);
+
+        return sidesAndDiagonal;
+    }
+
+    /**
      * метод определяет, возможно ли построить четырехугольник по четырем точкам
      * затем
      *
@@ -96,19 +117,14 @@ public class SquareAndPerimetrOld {
      * @return - true, если по данным четырем точкам можно построить четырехугольник,
      * в противном случае вернет false
      */
-
     public static boolean isRectanglePossible(Point a, Point b, Point c, Point d) {
-        // вычислим длины сторон прямоугольника и одной его диагонали
-        double sideAB = getDistance(a, b);
-        double sideBC = getDistance(b, c);
-        double sideCD = getDistance(c, d);
-        double sideDA = getDistance(d, a);
-        double sideBD = getDistance(b, d);
+        // вычислим длины сторон четырехугольника и одной его диагонали
+        var sides = getSidesAndDiagonal(a, b, c, d);
 
         // теперь проверим неравенства для двух треугольников,
         // образованных разделением четырехугольника по диагонали
-        boolean flag1 = isTriangleRuleCompleted(sideAB, sideBD, sideDA);
-        boolean flag2 = isTriangleRuleCompleted(sideBC, sideCD, sideBD);
+        boolean flag1 = isTriangleRuleCompleted(sides[0], sides[4], sides[3]);
+        boolean flag2 = isTriangleRuleCompleted(sides[1], sides[2], sides[4]);
         return flag1 && flag2;
     }
 

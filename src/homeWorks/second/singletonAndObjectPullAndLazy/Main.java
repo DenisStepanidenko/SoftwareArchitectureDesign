@@ -8,6 +8,7 @@ public class Main {
         Car rentedCar3 = carPool.rentCar("UAZ", "Hunter", "Green");
 
         carPool.finishRental(rentedCar1);
+        carPool.finishRental(new Car("afa", "sa", "sf"));
     }
 
 }

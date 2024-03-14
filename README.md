@@ -323,6 +323,139 @@ public class SquareAndPerimetrNew {
         return sidesAndDiagonal;
     }
 ```
+***
+
+# Задание 2 :computer:
+*Необходимо придумать задачи (или задачу), где можно было бы применить такие паттерны, как **Singleton, Objects Pools, Lazy Initialization*** :mortar_board:  
+Мы постарались придумать такой кейс, где можно было бы применить сразу все данные паттерны.
+## Техническое задание :ledger:
+*Необходимо создать систему управления автомобилями для автосервиса, который выдаёт машины различных марок в аренду. Данный автосервис в основном должен делать две вещи - выдать автомобиль пользователю по бренду, модели и цвету, а также вернуть в автосервис машину, взятую пользователем в аренду* :car:
+## Техническое описание :clapper:
+## Классы и главные методы :crystal_ball:
+### Класс Car implements Comparable \<Car\> :ballot_box_with_check:
+*Данный класс описывает машину в виде названия бренда, модели и цвета. Также он реализовывает интерфейс Comparable, чтобы сравнивать объекты типа Car между собой( по умолчанию идёт сравнение по ссылкам, но нам это не подходит).*
+***
+### Класс CarPool :ballot_box_with_check:
+*Основной класс, в котором прописана бизнес логика, представляет из себя пул объектов типа Car.*
+### Метод *public static CarPool getInstance()* :white_check_mark:
+*Данный метод вовзращает ссылку на единственный экземпляр типа CarPool.*
+### Метод *public Car rentCar(String brand, String model, String color)* :white_check_mark:
+*Данный метод ищет машину в доступных по бренду, модели и цвету и возвращает ссылку на объект типа Car. Также в данном методе происходит логика удаления данной машины из доступных, а также добавление в текущий список арендованных автомобилей.*
+### Метод *public void finishRental(Car rentedCar)* :white_check_mark:
+*Данный метод принимает в качестве параметра ссылку на объект типа Car и добавляет машину снова в доступные для аренды в нашем автосервисе. А также удаляет данный автомобиль из списка арендованных на данный момент.*
+### Метод *private List\<Car\> loadCars()* :white_check_mark:
+*Данный метод при создании объекта типа CarPool инициализирует список доступных автомобилей.*
+***
+## Реализация паттернов :collision:
+Понятное дело, что наш автосервис должен представлять из себя пул объектов, а именно пул объектов типа Car. Это и будет наша реализация паттерна ***Objects Pool*** :anger:   
+Ниже приведена реализация данного класса, который представляет из себя пул объектов.
+```java
+public class CarPool {
+    private static CarPool instance;
+    List<Car> availableCars;
+    List<Car> rentedCars;
+
+    private CarPool() {
+        rentedCars = new ArrayList<>();
+        availableCars = loadCars();
+    }
+
+    public static CarPool getInstance() {
+        if (instance == null) {
+            instance = new CarPool();
+        }
+        return instance;
+    }
+
+    private List<Car> loadCars() {
+        List<Car> cars = new ArrayList<>();
+        cars.add(new Car("Honda", "Accord", "White"));
+        cars.add(new Car("Skoda", "Octavia", "Green"));
+        cars.add(new Car("Nissan", "X-Trail", "Silver"));
+        cars.add(new Car("Hyundai", "Solaris", "Yellow"));
+        cars.add(new Car("Toyota", "Camry", "Snowy-white"));
+        cars.add(new Car("Mazda", "6", "Red"));
+        cars.add(new Car("UAZ", "Hunter", "Green"));
+        cars.add(new Car("Volkswagen", "Polo", "Black"));
+        cars.add(new Car("Renault", "Duster", "Orange"));
+        cars.add(new Car("Lada", "Granta", "Carnelian"));
+
+        return cars;
+    }
+
+    public Car rentCar(String brand, String model, String color) {
+
+        Car neededCar = new Car(brand, model, color);
+
+        for (var car : availableCars) {
+            if (car.compareTo(neededCar) == 0) {
+                rentedCars.add(car);
+                availableCars.remove(car);
+                System.out.printf("The car (Brand: %s, Model: %s, Color: %s) rental has started.\n", neededCar.brand, neededCar.model, neededCar.color);
+                return car;
+            }
+        }
+        System.out.printf("We are sorry. There is no car with such parameters (Brand: %s, Model: %s, Color: %s) at the moment.\n", neededCar.brand, neededCar.model, neededCar.color);
+        return null;
+    }
+
+    public void finishRental(Car rentedCar) {
+        availableCars.add(rentedCar);
+        rentedCars.remove(rentedCar);
+
+        System.out.printf("The car (Brand: %s, Model: %s, Color: %s) rental is finished.\n", rentedCar.brand, rentedCar.model, rentedCar.color);
+    }
+}
+``` 
+Также данный пул объектов типа Car должен реализовывать паттерн ***Singleton***, так как у нас один единственный автосервис, и не должно быть две разные ссылки на данный класс :dizzy:  
+Но ещё можно отметить, что именно здесь можно применять паттерн ***Lazy Initialization***. Ведь нам не нужно сразу же инициализировать всеми машинами наш автосервис, вдруг им никто и не воспользуется :disappointed:  
+Посмотрим на реализацию этих двух паттернов :scroll:
+```java
+private static CarPool instance;
+private CarPool() {
+        rentedCars = new ArrayList<>();
+        availableCars = loadCars();
+}
+public static CarPool getInstance() {
+        if (instance == null) {
+            instance = new CarPool();
+        }
+        return instance;
+}
+private List<Car> loadCars() {
+        List<Car> cars = new ArrayList<>();
+        cars.add(new Car("Honda", "Accord", "White"));
+        cars.add(new Car("Skoda", "Octavia", "Green"));
+        cars.add(new Car("Nissan", "X-Trail", "Silver"));
+        cars.add(new Car("Hyundai", "Solaris", "Yellow"));
+        cars.add(new Car("Toyota", "Camry", "Snowy-white"));
+        cars.add(new Car("Mazda", "6", "Red"));
+        cars.add(new Car("UAZ", "Hunter", "Green"));
+        cars.add(new Car("Volkswagen", "Polo", "Black"));
+        cars.add(new Car("Renault", "Duster", "Orange"));
+        cars.add(new Car("Lada", "Granta", "Carnelian"));
+
+        return cars;
+}
+
+```
+***
+# Задание 3 :computer:
+*Придумать задачу, где можно было бы применить такие паттерны, как ***Abstract Factory/Factory Method**** :mortar_board:  
+## Техническое задание :ledger:
+*Представим, что у нас есть приложение для онлайн-магазина, который продаёт различные виды электроники: смартфоны, ноутбуки, планшеты. И нам нужно реализовать функциональность для создания заказов на различные категории продуктов* :iphone:  
+## Техническое описание :clapper:  
+## Классы и главные методы :crystal_ball:
+### interface ElectronicProductFactory :ballot_box_with_check:
+*Данный интерфейс и является абстрактной фабрикой, которая в себе хранит фабричные методы для создания различной электроники*
+### Метод *Smartphone createSmartphone()* :white_check_mark:
+*Данный метод возвращает объект типа Smartphone*
+### Метод *Laptop createLaptop()* :white_check_mark:
+*Данный метод возвращает объект типа Laptop*
+### Метод *Pad createPad()* :white_check_mark:
+*Данный метод возвращает объект типа Pad* 
+
+
 
 
 

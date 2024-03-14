@@ -51,18 +51,27 @@ public class CarPool {
             if (car.compareTo(neededCar) == 0) {
                 rentedCars.add(car);
                 availableCars.remove(car);
-                System.out.printf("The car (Brand: %s, Model: %s, Color: %s) rental has started.\n", neededCar.brand, neededCar.model, neededCar.color);
+                System.out.printf("The car (Brand: %s, Model: %s, Color: %s) rental has started.\n",
+                        neededCar.brand, neededCar.model, neededCar.color);
                 return car;
             }
         }
-        System.out.printf("We are sorry. There is no car with such parameters (Brand: %s, Model: %s, Color: %s) at the moment.\n", neededCar.brand, neededCar.model, neededCar.color);
+        System.out.printf("We are sorry. There is no car with such parameters (Brand: %s, Model: %s, " +
+                "Color: %s) at the moment.\n", neededCar.brand, neededCar.model, neededCar.color);
         return null;
     }
 
     public void finishRental(Car rentedCar) {
-        availableCars.add(rentedCar);
-        rentedCars.remove(rentedCar);
+        if (rentedCars.contains(rentedCar)) {
+            availableCars.add(rentedCar);
+            rentedCars.remove(rentedCar);
 
-        System.out.printf("The car (Brand: %s, Model: %s, Color: %s) rental is finished.\n", rentedCar.brand, rentedCar.model, rentedCar.color);
+            System.out.printf("The car (Brand: %s, Model: %s, Color: %s) rental is finished.\n",
+                    rentedCar.brand, rentedCar.model, rentedCar.color);
+        } else  {
+            System.out.printf("We are sorry. The car (Brand: %s, Model: %s, Color: %s) has not been rented.\n",
+                    rentedCar.brand, rentedCar.model, rentedCar.color);
+        }
+
     }
 }

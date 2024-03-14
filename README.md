@@ -323,6 +323,7 @@ public class SquareAndPerimetrNew {
         return sidesAndDiagonal;
     }
 ```
+***
 
 # Задание 2 :computer:
 *Необходимо придумать задачи (или задачу), где можно было бы применить такие паттерны, как **Singleton, Objects Pools, Lazy Initialization*** :mortar_board:  
@@ -438,6 +439,22 @@ private List<Car> loadCars() {
 }
 
 ```
+***
+# Задание 3 :computer:
+*Придумать задачу, где можно было бы применить такие паттерны, как ***Abstract Factory/Factory Method**** :mortar_board:  
+## Техническое задание :ledger:
+*Представим, что у нас есть приложение для онлайн-магазина, который продаёт различные виды электроники: смартфоны, ноутбуки, планшеты. И нам нужно реализовать функциональность для создания заказов на различные категории продуктов* :iphone:  
+## Техническое описание :clapper:  
+## Классы и главные методы :crystal_ball:
+### interface ElectronicProductFactory :ballot_box_with_check:
+*Данный интерфейс и является абстрактной фабрикой, которая в себе хранит фабричные методы для создания различной электроники*
+### Метод *Smartphone createSmartphone()* :white_check_mark:
+*Данный метод возвращает объект типа Smartphone*
+### Метод *Laptop createLaptop()* :white_check_mark:
+*Данный метод возвращает объект типа Laptop*
+### Метод *Pad createPad()* :white_check_mark:
+*Данный метод возвращает объект типа Pad* 
+
 
 
 

@@ -548,6 +548,79 @@ public class SamsungProductFactory implements ElectronicProductFactory {
     }
 }
 ```
+Интерфейс ***Smartphone***  
+```java
+public interface Smartphone {
+    void showInfo();
+}
+```
+Интерфейс ***Laptop***
+```java
+public interface Laptop {
+    void showInfo();
+}
+```
+Интерфейс ***Pad***
+```java
+public interface Pad {
+    void showInfo();
+}
+```
+Класс ***IPad***
+```java
+public class IPad implements Pad {
+    @Override
+    public void showInfo() {
+        System.out.println("You have created IPad.");
+    }
+}
+```
+Класс ***Iphone***
+```java
+public class IPhone implements Smartphone {
+
+    @Override
+    public void showInfo() {
+        System.out.println("You have created IPhone.");
+    }
+}
+```
+Класс ***MacBook***
+```java
+public class MacBook implements Laptop {
+    @Override
+    public void showInfo() {
+        System.out.println("You have created MacBook.");
+    }
+}
+```
+Класс ***Galaxy***
+```java
+public class Galaxy implements Smartphone {
+    @Override
+    public void showInfo() {
+        System.out.println("You have created Galaxy.");
+    }
+}
+```
+Класс ***GalaxyBook***
+```java
+public class GalaxyBook implements Laptop {
+    @Override
+    public void showInfo() {
+        System.out.println("You have created GalaxyBook.");
+    }
+}
+```
+Класс ***GalaxyTab***
+```java
+public class GalaxyTab implements Pad {
+    @Override
+    public void showInfo() {
+        System.out.println("You have created GalaxyTab.");
+    }
+}
+```
 
 
 

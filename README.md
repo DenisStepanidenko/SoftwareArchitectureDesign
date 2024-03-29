@@ -446,7 +446,7 @@ private List<Car> loadCars() {
 *Представим, что у нас есть приложение для онлайн-магазина, который продаёт различные виды электроники: смартфоны, ноутбуки, планшеты. И нам нужно реализовать функциональность для создания заказов на различные категории продуктов* :iphone:  
 ## Техническое описание :clapper:  
 ## Классы и главные методы :crystal_ball:
-### interface ElectronicProductFactory :ballot_box_with_check:
+### Interface ElectronicProductFactory :ballot_box_with_check:
 *Данный интерфейс и является абстрактной фабрикой, которая в себе хранит фабричные методы для создания различной электроники*
 ### Метод *Smartphone createSmartphone()* :white_check_mark:
 *Данный метод возвращает объект типа Smartphone*
@@ -454,6 +454,175 @@ private List<Car> loadCars() {
 *Данный метод возвращает объект типа Laptop*
 ### Метод *Pad createPad()* :white_check_mark:
 *Данный метод возвращает объект типа Pad* 
+***
+### Class AppleProductFactory implements ElectronicProductFactory :ballot_box_with_check:
+*Реализация конкретной фабрики, которая будет выдавать разлчиную продукцию компании Apple* 
+***
+### Class SamsungProductFactory implements ElectronicProductFactory :ballot_box_with_check:
+*Реализация конкретной фабрики, которая будет выдавать различную продукцию компании Samsung*
+***
+### Interface Laptop :ballot_box_with_check:
+*Общий интерфейс для сущности - ноутбук*
+### Метод *void showInfo()* :white_check_mark:
+*Данный метод выводит информацию об объекте*
+***
+### Interface Pad :ballot_box_with_check:
+*Общий интерфейс для сущности - планшет*
+### Метод *void showInfo()* :white_check_mark:
+*Данный метод выводит информацию об объекте*
+***
+### Interface Smartphone :ballot_box_with_check:
+*Общий интерфейс для сущности - смартфон*
+### Метод *void showInfo()* :white_check_mark:
+*Данный метод выводит информацию об объекте*
+***
+### Class Galaxy implements Smartphone :ballot_box_with_check:
+*Конкретная реализация интерфейса Smartphone, представляет смартфон компании Samsung*
+***
+### Class GalaxyBook implements Laptop :ballot_box_with_check:
+*Конкретная реализция интерфейса Laptop, представляет из себя ноутбук компании Samsung*
+***
+### Class GalaxyTab implements Pad :ballot_box_with_check:
+*Конкретная реализация интерфейса Pad, представляет из себя планшет компании Samsung*
+***
+### Class IPhone implements Smartphone :ballot_box_with_check:
+*Конкретная релазиация интерфейса Smartphone, представляет из себя смартфон компании Apple*
+***
+### Class MacBook implements Laptop :ballot_box_with_check:
+*Конкретная реализация интерфейса Laptop, представляет из себя ноутбук компании Apple*
+***
+### Class IPad implements Pad :ballot_box_with_check:
+*Конкретная реализация интерфейса Pad, представляет из себя планшет компании Pad*
+***
+## Реализация паттернов :collision: 
+Абстрактная фабрика в нашей задаче реализована следующим образом :space_invader:
+```java
+public interface ElectronicProductFactory {
+    Smartphone createSmartphone();
+    Laptop createLaptop();
+    Pad createPad();
+}
+```
+Данная абстрактная фабрика имеет три метода для создания различной электроники. Далее в программе электроника ранжируется в зависимости от производителя :high_brightness:  
+Рассмотрим конкретные реализации данной фабрики :pencil:  
+
+Фабрика для производителя ***Apple*** :dart:
+```java
+public class AppleProductFactory implements ElectronicProductFactory {
+
+    @Override
+    public Smartphone createSmartphone() {
+        return new IPhone();
+    }
+
+    @Override
+    public Laptop createLaptop() {
+        return new MacBook();
+    }
+
+    @Override
+    public Pad createPad() {
+        return new IPad();
+    }
+}
+```
+
+Фабрика для производителя ***Samsung*** :dart:
+
+```java
+public class SamsungProductFactory implements ElectronicProductFactory {
+
+    @Override
+    public Smartphone createSmartphone() {
+        return new Galaxy();
+    }
+
+    @Override
+    public Laptop createLaptop() {
+        return new GalaxyBook();
+    }
+
+    @Override
+    public Pad createPad() {
+        return new GalaxyTab();
+    }
+}
+```
+Интерфейс ***Smartphone***  
+```java
+public interface Smartphone {
+    void showInfo();
+}
+```
+Интерфейс ***Laptop***
+```java
+public interface Laptop {
+    void showInfo();
+}
+```
+Интерфейс ***Pad***
+```java
+public interface Pad {
+    void showInfo();
+}
+```
+Класс ***IPad***
+```java
+public class IPad implements Pad {
+    @Override
+    public void showInfo() {
+        System.out.println("You have created IPad.");
+    }
+}
+```
+Класс ***Iphone***
+```java
+public class IPhone implements Smartphone {
+
+    @Override
+    public void showInfo() {
+        System.out.println("You have created IPhone.");
+    }
+}
+```
+Класс ***MacBook***
+```java
+public class MacBook implements Laptop {
+    @Override
+    public void showInfo() {
+        System.out.println("You have created MacBook.");
+    }
+}
+```
+Класс ***Galaxy***
+```java
+public class Galaxy implements Smartphone {
+    @Override
+    public void showInfo() {
+        System.out.println("You have created Galaxy.");
+    }
+}
+```
+Класс ***GalaxyBook***
+```java
+public class GalaxyBook implements Laptop {
+    @Override
+    public void showInfo() {
+        System.out.println("You have created GalaxyBook.");
+    }
+}
+```
+Класс ***GalaxyTab***
+```java
+public class GalaxyTab implements Pad {
+    @Override
+    public void showInfo() {
+        System.out.println("You have created GalaxyTab.");
+    }
+}
+```
+
+
 
 
 

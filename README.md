@@ -624,7 +624,7 @@ public class GalaxyTab implements Pad {
 ***  
 
 # Задание 4 :computer:
-*Придумать задачу, где нужно было бы применить паттерн **decorator***
+*Придумать задачу, где нужно было бы применить паттерн **decorator*** :mortar_board:  
 ## Техническое задание :ledger:  
 *Давайте представим, что у нас есть приложение для создания и редактирования текстовых документов. Мы хотим добавить возможность применения различных стилей форматирования текста к документам, таких как жирный, курсив, и т.д.*
 ## Техническое описание :clapper:   
@@ -701,5 +701,47 @@ public class ItalicTextFormat extends TextFormatDecorator{
 }
 
 ```
+***
 
+# Задание 5 :computer:
+*Придумать задачу, где нужно было бы применить паттерн **adpater*** :mortar_board:   
+## Техническое задание :ledger: 
+*Представим, что у нас есть приложение для онлайн-покупок, и мы хотим интегрировать новый платежный сервис для обработки платежей. Однако API нового платежного сервиса имеет отличную структуру и методы от текущего API, используемого в нашем приложении.
+Для интеграции нового платежного сервиса мы не хотим менять существующий кода приложения*
+## Техническое описание :clapper:   
+## Классы и главные методы :crystal_ball:
+### public interface PaymentService :ballot_box_with_check:
+*Интерфейс, который соответствует старому платёжному сервису*
+### Метод *void processPayment(double amount)* :white_check_mark:
+*Метод, который производит платежи по старой логики*
+***
+### public class CurrentPaymentService implements PaymentService :ballot_box_with_check:
+*Конкретная релизация интерфейса со старым методом логики начисления платежей*
+***
+### public interface NewPaymentService :ballot_box_with_check:  
+*Интерфейс, который соответствует новому платёжному сервису*
+### *void makePayment(double amount)* :white_check_mark:
+*Метод, который производит платежи по новой логики*  
+### public class NewPaymentServiceImpl implements NewPaymentService :ballot_box_with_check:
+*Конкретная релизация интерфейса с новым методом логики начисления платежей*
+***
+### public class PaymentServiceAdapter implements PaymentService :ballot_box_with_check:
+*Класс адаптер, который принимает запросы от нашего приложения, преобразует их в формат, который понимает новый платежный сервис, отправляет запросы на обработку и возвращает результаты в формате, понятном нашему приложению*
+<br/>  
+## Реализация паттернов :collision:
+*Реализация адаптера между интерфейсом **PaymentService** и **NewPaymentService***
+```java 
+public class PaymentServiceAdapter implements PaymentService {
+    private final NewPaymentService newPaymentService;
+
+    public PaymentServiceAdapter(NewPaymentService newPaymentService) {
+        this.newPaymentService = newPaymentService;
+    }
+
+    @Override
+    public void processPayment(double amount) {
+        newPaymentService.makePayment(amount);
+    }
+}
+```
 

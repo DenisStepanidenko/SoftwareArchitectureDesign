@@ -621,14 +621,127 @@ public class GalaxyTab implements Pad {
     }
 }
 ```
+***  
 
+# Задание 4 :computer:
+*Придумать задачу, где нужно было бы применить паттерн **decorator*** :mortar_board:  
+## Техническое задание :ledger:  
+*Давайте представим, что у нас есть приложение для создания и редактирования текстовых документов. Мы хотим добавить возможность применения различных стилей форматирования текста к документам, таких как жирный, курсив, и т.д.*
+## Техническое описание :clapper:   
+## Классы и главные методы :crystal_ball:  
+### public interface TextFormat :ballot_box_with_check:
+*Базовый интерфейс для форматирования текстов*
+### Метод *String applyFormat()* :white_check_mark:
+*Данный метод форматирует текст*
+***
+### public class TextFormatDecorator implements TextFormat :ballot_box_with_check:
+*Базовый класс для всех декораторов*
+***
+### public class PlainText implements TextFormat :ballot_box_with_check:
+*Базовый класс, в котором текст никак не отформатирован*
+***
+### public class ItalicTextFormat extends TextFormatDecorator :ballot_box_with_check:
+*Класс, который накладывает эффект курсива на текст*
+### Метод *public String makeItalic()* :white_check_mark:  
+*Данный метод добавляет эффект курсива*
+***
+### public class BoldTextFormat extends TextFormatDecorator :ballot_box_with_check:  
+*Класс, который накладывает эффект жирного текста*
+### Метод *public String makeBold()* :white_check_mark:   
+*Данный метод добавляет эффект жирного текста*  
+ ***
+## Реализация паттернов :collision:
+*Реализация базового класса для всех декораторов*
+```java 
+public class TextFormatDecorator implements TextFormat {
+    TextFormat textFormat;
 
+    public TextFormatDecorator(TextFormat textFormat) {
+        this.textFormat = textFormat;
+    }
 
+    @Override
+    public String applyFormat() {
+        return textFormat.applyFormat();
+    }
+}
+```
+*Реализация декоратора, который накладаывает эффект жирного текста*
+```java
+public class BoldTextFormat extends TextFormatDecorator{
+    public BoldTextFormat(TextFormat textFormat) {
+        super(textFormat);
+    }
 
+    public String makeBold(){
+        return ".Making text bold";
+    }
 
+    @Override
+    public String applyFormat() {
+        return super.applyFormat() + makeBold();
+    }
+}
+```  
+*Реализация декоратора, который накладывает на текст эффект курсива*
+```java 
+public class ItalicTextFormat extends TextFormatDecorator{
+    public ItalicTextFormat(TextFormat textFormat) {
+        super(textFormat);
+    }
 
+    public String makeItalic(){
+        return ".Making text italic";
+    }
 
+    @Override
+    public String applyFormat() {
+        return super.applyFormat() + makeItalic();
+    }
+}
 
+```
+***
 
+# Задание 5 :computer:
+*Придумать задачу, где нужно было бы применить паттерн **adpater*** :mortar_board:   
+## Техническое задание :ledger: 
+*Представим, что у нас есть приложение для онлайн-покупок, и мы хотим интегрировать новый платежный сервис для обработки платежей. Однако API нового платежного сервиса имеет отличную структуру и методы от текущего API, используемого в нашем приложении.
+Для интеграции нового платежного сервиса мы не хотим менять существующий кода приложения*
+## Техническое описание :clapper:   
+## Классы и главные методы :crystal_ball:
+### public interface PaymentService :ballot_box_with_check:
+*Интерфейс, который соответствует старому платёжному сервису*
+### Метод *void processPayment(double amount)* :white_check_mark:
+*Метод, который производит платежи по старой логики*
+***
+### public class CurrentPaymentService implements PaymentService :ballot_box_with_check:
+*Конкретная релизация интерфейса со старым методом логики начисления платежей*
+***
+### public interface NewPaymentService :ballot_box_with_check:  
+*Интерфейс, который соответствует новому платёжному сервису*
+### *void makePayment(double amount)* :white_check_mark:
+*Метод, который производит платежи по новой логики*  
+### public class NewPaymentServiceImpl implements NewPaymentService :ballot_box_with_check:
+*Конкретная релизация интерфейса с новым методом логики начисления платежей*
+***
+### public class PaymentServiceAdapter implements PaymentService :ballot_box_with_check:
+*Класс адаптер, который принимает запросы от нашего приложения, преобразует их в формат, который понимает новый платежный сервис, отправляет запросы на обработку и возвращает результаты в формате, понятном нашему приложению*
+<br/>  
+## Реализация паттернов :collision:
+*Реализация адаптера между интерфейсом **PaymentService** и **NewPaymentService***
+```java 
+public class PaymentServiceAdapter implements PaymentService {
+    private final NewPaymentService newPaymentService;
 
+    public PaymentServiceAdapter(NewPaymentService newPaymentService) {
+        this.newPaymentService = newPaymentService;
+    }
+
+    @Override
+    public void processPayment(double amount) {
+        newPaymentService.makePayment(amount);
+    }
+}
+```
 

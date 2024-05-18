@@ -10,7 +10,6 @@ import java.util.List;
 // =
 public class CarPool {
     private static CarPool instance;
-
     List<Car> availableCars;
     List<Car> rentedCars;
 
@@ -27,7 +26,6 @@ public class CarPool {
     }
 
     private List<Car> loadCars() {
-
         List<Car> cars = new ArrayList<>();
         cars.add(new Car("Honda", "Accord", "White"));
         cars.add(new Car("Skoda", "Octavia", "Green"));

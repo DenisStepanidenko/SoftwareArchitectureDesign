@@ -2,7 +2,7 @@ package homeWorks.template;
 
 abstract class DocumentProcessor {
     // Шаблонный метод для обработки документа
-    public void processDocument() {
+    public final void processDocument() {
         openDocument();
         extractContent();
         manipulateContent();

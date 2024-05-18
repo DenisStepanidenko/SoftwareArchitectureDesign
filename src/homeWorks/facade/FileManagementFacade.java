@@ -7,7 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class FileManagementFacade {
-    private final String pathToRootFolder = "src/homeWorks/facade/folders";
+    private final String pathToRootFolder = "C:\\Users\\stepa\\IdeaProjects\\SoftwareArchitectureDesign-master\\src\\homeWorks\\facade\\folders";
 
     public String getPathToRootFolder() {
         return pathToRootFolder;

@@ -1,5 +1,5 @@
 package homeWorks.finalProject;
 
 public interface Range {
-    void rangeAttack();
+    void rangeAttack(Unit unit);
 }

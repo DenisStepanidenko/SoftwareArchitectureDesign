@@ -1,5 +1,5 @@
 package homeWorks.finalProject;
 
 public interface Melee {
-    void meleeAttack();
+    void meleeAttack(Unit unit);
 }

@@ -12,6 +12,6 @@ public class Main {
 
         DocumentProcessor videoProcessor = new VideoDocumentProcessor();
         videoProcessor.processDocument();
-        HashMap<String , Integer>
+        //HashMap<String , Integer>
     }
 }

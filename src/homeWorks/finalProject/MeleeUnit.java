@@ -1,26 +1,34 @@
 package homeWorks.finalProject;
 
-public abstract class MeleeUnit extends Unit implements Melee {
+public abstract class MeleeUnit extends Unit{
 
-    public MeleeUnit(int healthPoint, int attack, int defense, int cost, int dodge) {
-        super(healthPoint, attack, defense, cost, dodge);
+    public MeleeUnit(int maxHealth, int currentHealthPoint, int attack, int defense, int cost, int dodge) {
+        super(maxHealth, currentHealthPoint, attack, defense, cost, dodge);
     }
 
-
-    public abstract int generateCriticalDamage();
-
-
-    @Override
-    public void attack(Unit unit) {
-        meleeAttack(unit);
+    public MeleeUnit(LightUnit target) {
+        super(target);
     }
 
+    /**
+     * Метод, который генерирует шанс критического урона у ближников
+     *
+     * @return возвращает число, которое соответствует коэффициенту, на который будем умножаться атака
+     */
+    public abstract int generateCriticalDamageForMeleeAttack();
+
+
+    /**
+     * Метод, который совершает атаку у ближника
+     *
+     * @param unit персонаж, по которому ведётся атака
+     */
     @Override
     public void meleeAttack(Unit unit) {
         // формула для атаки
-        int commonDamage = this.getAttack() * generateCriticalDamage() - unit.getDefense() - unit.generatedDodge() * unit.getDodge();
-        int currentHp = unit.getHealthPoint();
-
-        unit.setHealthPoint(currentHp - commonDamage);
+        int commonDamage = this.getAttack() * generateCriticalDamageForMeleeAttack() - unit.getDefense() - unit.generatedDodge() * unit.getDodge();
+        int currentHp = unit.getCurrentHealthPoint();
+        unit.setCurrentHealthPoint(currentHp - commonDamage);
     }
+
 }

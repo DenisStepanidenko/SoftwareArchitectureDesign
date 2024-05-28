@@ -1,6 +1,8 @@
-package homeWorks.finalProject;
+package homeWorks.finalProject.baseUnit.meleeUnit;
 
-public abstract class MeleeUnit extends Unit{
+import homeWorks.finalProject.baseUnit.Unit;
+
+public abstract class MeleeUnit extends Unit {
 
     public MeleeUnit(int maxHealth, int currentHealthPoint, int attack, int defense, int cost, int dodge) {
         super(maxHealth, currentHealthPoint, attack, defense, cost, dodge);
@@ -16,6 +18,8 @@ public abstract class MeleeUnit extends Unit{
      * @return возвращает число, которое соответствует коэффициенту, на который будем умножаться атака
      */
     public abstract int generateCriticalDamageForMeleeAttack();
+
+
 
 
     /**

@@ -1,4 +1,7 @@
-package homeWorks.finalProject;
+package homeWorks.finalProject.baseUnit.rangeUnit;
+
+import homeWorks.finalProject.otherInterfaces.Range;
+import homeWorks.finalProject.baseUnit.Unit;
 
 public abstract class RangeUnit extends Unit implements Range {
     private final int range;

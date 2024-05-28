@@ -1,6 +1,9 @@
 package homeWorks.finalProject;
 
-import java.util.*;
+import homeWorks.finalProject.baseUnit.Unit;
+import homeWorks.finalProject.baseUnit.meleeUnit.LightUnit;
+import homeWorks.finalProject.baseUnit.rangeUnit.Archer;
+import homeWorks.finalProject.buffUnit.BuffDefenseHeavy;
 
 public class Test {
     public static void main(String[] args) {
@@ -19,12 +22,22 @@ public class Test {
 //        Unit healer = unitFactory.getHealer();
 //        Healer healer1 = (Healer) healer;
 //        System.out.println(healer1.getHealingAmount());
+        //Unit heavyDecorator = new AttackHeavyDecorator(1, 2, 3, 4, 5, 6, new HeavyUnit(1, 2, 3, 4, 5, 6));
 
-        Stack<Unit> test = new Stack<>();
-        MeleeUnit meleeUnit = new LightUnit(1,2,3,4,5,6);
-        test.add(meleeUnit);
-        System.out.println(test);
+        // heavyDecorator.meleeAttack(new LightUnit(1, 2, 3, 4, 5, 6));
+//
+//        BuffDefenseHeavy buffAttackHeavy = new BuffDefenseHeavy(1, 2, 3, 4, 5, 6);
+//
+//        LightUnit lightUnit = new LightUnit(1, 2, 3, 4, 5, 6);
+//
+//        lightUnit.meleeAttack(buffAttackHeavy);
 
+        //Game game = new Game();
+        //game.start();
+
+        Unit unit = new Archer(1,2,3,4,5,6,7);
+
+        System.out.println(unit.getClass().getSimpleName());
 
     }
 }

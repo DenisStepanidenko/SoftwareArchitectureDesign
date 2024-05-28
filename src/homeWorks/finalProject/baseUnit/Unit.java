@@ -1,4 +1,4 @@
-package homeWorks.finalProject;
+package homeWorks.finalProject.baseUnit;
 
 public abstract class Unit {
     private final int maxHealth;
@@ -67,6 +67,7 @@ public abstract class Unit {
     public int getDodge() {
         return dodge;
     }
+
 
     public abstract int generatedDodge();
 

@@ -1,4 +1,9 @@
-package homeWorks.finalProject;
+package homeWorks.finalProject.armyFactory.meleeArmyFactory;
+
+import homeWorks.finalProject.armyFactory.ArmyFactory;
+import homeWorks.finalProject.baseUnit.meleeUnit.HeavyUnit;
+import homeWorks.finalProject.baseUnit.meleeUnit.LightUnit;
+import homeWorks.finalProject.baseUnit.meleeUnit.MeleeUnit;
 
 public class MeleeArmyFactory implements ArmyFactory<MeleeUnit> {
 

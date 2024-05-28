@@ -1,4 +1,6 @@
-package homeWorks.finalProject;
+package homeWorks.finalProject.baseUnit.rangeUnit;
+
+import homeWorks.finalProject.baseUnit.Unit;
 
 import java.util.Random;
 

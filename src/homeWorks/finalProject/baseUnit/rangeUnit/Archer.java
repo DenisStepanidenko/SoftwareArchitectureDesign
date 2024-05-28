@@ -1,8 +1,11 @@
-package homeWorks.finalProject;
+package homeWorks.finalProject.baseUnit.rangeUnit;
+
+import homeWorks.finalProject.otherInterfaces.Clonable;
+import homeWorks.finalProject.baseUnit.Unit;
 
 import java.util.Random;
 
-public class Archer extends RangeUnit implements Clonable{
+public class Archer extends RangeUnit implements Clonable {
 
     public Archer(int maxHealth, int currentHealthPoint, int attack, int defense, int cost, int dodge, int range) {
         super(maxHealth, currentHealthPoint, attack, defense, cost, dodge, range);
@@ -44,4 +47,7 @@ public class Archer extends RangeUnit implements Clonable{
     public Unit clone() {
         return new Archer(this);
     }
+
+
+
 }

@@ -1,8 +1,11 @@
-package homeWorks.finalProject;
+package homeWorks.finalProject.baseUnit.rangeUnit;
+
+import homeWorks.finalProject.baseUnit.Unit;
+import homeWorks.finalProject.baseUnit.meleeUnit.LightUnit;
 
 import java.util.Random;
 
-public class Mage extends RangeUnit{
+public class Mage extends RangeUnit {
 
     public Mage(int maxHealth, int currentHealthPoint, int attack, int defense, int cost, int dodge, int range) {
         super(maxHealth, currentHealthPoint, attack, defense, cost, dodge, range);

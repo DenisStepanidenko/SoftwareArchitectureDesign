@@ -1,6 +1,12 @@
-package homeWorks.finalProject;
+package homeWorks.finalProject.armyFactory.rangeArmyFactory;
 
-public class RangeUnitFactory implements ArmyFactory<RangeUnit> {
+import homeWorks.finalProject.armyFactory.ArmyFactory;
+import homeWorks.finalProject.baseUnit.rangeUnit.Archer;
+import homeWorks.finalProject.baseUnit.rangeUnit.Healer;
+import homeWorks.finalProject.baseUnit.rangeUnit.Mage;
+import homeWorks.finalProject.baseUnit.rangeUnit.RangeUnit;
+
+public class RangeArmyFactory implements ArmyFactory<RangeUnit> {
 
     @Override
     public RangeUnit create(String typeOfUnit) {

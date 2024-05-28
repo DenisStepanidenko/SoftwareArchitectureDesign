@@ -1,4 +1,4 @@
-package homeWorks.finalProject;
+package homeWorks.finalProject.baseUnit.meleeUnit;
 
 import java.util.Random;
 

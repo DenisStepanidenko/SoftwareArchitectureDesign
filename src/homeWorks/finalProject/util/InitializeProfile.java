@@ -1,6 +1,9 @@
 package homeWorks.finalProject.util;
 
+import homeWorks.finalProject.BuyUnitCommand;
 import homeWorks.finalProject.User;
+import homeWorks.finalProject.armyFactory.ArmyFactory;
+import homeWorks.finalProject.armyFactory.armyFactoryProvider.ArmyFactoryProvider;
 import homeWorks.finalProject.baseUnit.Unit;
 
 import java.util.Stack;
@@ -10,6 +13,7 @@ public class InitializeProfile {
 
     public InitializeProfile(Input input) {
         this.input = input;
+
     }
 
     public void loadData(User user) {
@@ -25,20 +29,63 @@ public class InitializeProfile {
          */
         boolean flag = true;
         while (flag) {
-            System.out.println("Ваше текущая сумма монет: " + user.getTotalSumOfMoney());
-            System.out.println("Ваша текущая армия: ");
-            System.out.println(getDescriptionOfArmy(user.getAllUnits()));
+            int choice = input.getChoiceForBuy(user);
+            switch (choice) {
+                case 1:
+                    // закончить все покупки
+                    // нужно проверить, купил ли пользователь хотя бы одного юнита
+                    boolean checking = checkForBuying(user);
+                    if(checking){
+                        // stack юнитов пустой, и нужно попросить пользователя купить >= 1 юнита
+                        System.out.println("Купите, пожалуйста, хотя бы одного персонажа");
+                        System.out.println();
+                        System.out.println("-------------");
+                    }
+                    else {
+                        flag = false;
+                        System.out.println();
+                        System.out.println("-------------");
+                    }
+                    break;
+                case 2:
+                    // покупка юнита
+                    buyUnit(user);
+                    break;
+                case 3:
+                    BuyUnitCommand buyUnitCommand = new BuyUnitCommand(user);
+                    buyUnitCommand.undo();
+                    break;
+            }
 
-            System.out.println("Для покупки ");
         }
     }
 
-    private String getDescriptionOfArmy(Stack<Unit> allUnits) {
-        StringBuilder description = new StringBuilder();
-        for (Unit unit : allUnits) {
-            description.append(unit.getClass().getSimpleName()).append("\n");
-        }
-
-        return description.toString();
+    private boolean checkForBuying(User user) {
+        return user.getAllUnits().isEmpty();
     }
+
+    private void buyUnit(User user) {
+        /**
+         * Для начала нужно получить тип юнита, который мы хотим купить
+         */
+        String choiceForTypeUnit = input.getTypeOfUnit();
+
+        /**
+         * Теперь создаём соответствующую фабрику
+         */
+        ArmyFactory factory = ArmyFactoryProvider.getFactory(choiceForTypeUnit);
+
+        /**
+         * Теперь нужно попросить у пользователя конкретного юнита для покупки
+         */
+
+        String unitForBuy = input.getUnit(choiceForTypeUnit);
+
+        /**
+         * Теперь с помощью команды покупаем юнита
+         */
+        BuyUnitCommand buyUnitCommand = new BuyUnitCommand(user);
+        buyUnitCommand.execute((Unit) factory.create(unitForBuy));
+    }
+
 }

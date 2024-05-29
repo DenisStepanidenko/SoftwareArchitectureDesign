@@ -22,7 +22,9 @@ public class BuyUnitCommand implements Command {
         user.setTotalSumOfMoney(currentSumOfMoney - unit.getCost());
         Stack<Unit> currentUnitStack = user.getAllUnits();
         currentUnitStack.add(unit);
-        System.out.println("Вы успешно купили " + unit.getClass());
+        System.out.println("Вы успешно купили " + unit.getClass().getSimpleName());
+        System.out.println();
+        System.out.println("-------------");
     }
 
     @Override
@@ -30,6 +32,8 @@ public class BuyUnitCommand implements Command {
         Stack<Unit> currentUnitStack = user.getAllUnits();
         if (currentUnitStack.isEmpty()) {
             System.out.println("Вы ещё не купили ни одного персонажа");
+            System.out.println();
+            System.out.println("-------------");
             return;
         }
 
@@ -38,6 +42,8 @@ public class BuyUnitCommand implements Command {
 
         int currentSumOfMoney = user.getTotalSumOfMoney();
         user.setTotalSumOfMoney(currentSumOfMoney + priceOfDeletedUnit);
-        System.out.println("Покупка персонажа " + deletedUnit.getClass() + " успешно отменена");
+        System.out.println("Покупка персонажа " + deletedUnit.getClass().getSimpleName() + " успешно отменена");
+        System.out.println();
+        System.out.println("-------------");
     }
 }

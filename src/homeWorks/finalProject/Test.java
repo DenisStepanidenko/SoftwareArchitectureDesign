@@ -5,6 +5,8 @@ import homeWorks.finalProject.baseUnit.meleeUnit.LightUnit;
 import homeWorks.finalProject.baseUnit.rangeUnit.Archer;
 import homeWorks.finalProject.buffUnit.BuffDefenseHeavy;
 
+import java.util.Stack;
+
 public class Test {
     public static void main(String[] args) {
 //        //Unit unit = new LightUnit(1, 2, 3, 4, 5);
@@ -35,9 +37,20 @@ public class Test {
         //Game game = new Game();
         //game.start();
 
-        Unit unit = new Archer(1,2,3,4,5,6,7);
+//        Unit unit = new Archer(1,2,3,4,5,6,7);
+//
+//        System.out.println(unit.getClass().getSimpleName());
 
-        System.out.println(unit.getClass().getSimpleName());
-
+//        Game game = new Game();
+//        game.start();
+        Stack<Integer> test = new Stack<>();
+        test.add(1);
+        test.add(2);
+        test.add(3);
+        test.add(4);
+        test.pop();
+        for (int i = 0; i < test.size(); i++) {
+            System.out.println(test.get(i));
+        }
     }
 }

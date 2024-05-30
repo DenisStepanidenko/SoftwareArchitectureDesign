@@ -10,7 +10,7 @@ public class BuffDodgeHeavy extends HeavyUnit {
 
     @Override
     public int getDodge() {
-        System.out.println("Улучшенный уворот");
+        //System.out.println("Улучшенный уворот");
         return super.getDodge() + 5;
     }
 }

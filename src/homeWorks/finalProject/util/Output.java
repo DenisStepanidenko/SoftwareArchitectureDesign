@@ -50,4 +50,16 @@ public class Output {
     public void getInfoAboutWinner(String winner) {
         System.out.println("Пользователь " + winner + " одержал победу!");
     }
+
+    public void getInfoAboutAttack(User firstUser, User secondUser, Unit unitForFirstUser, Unit unitForSecondUser) {
+        System.out.println(unitForFirstUser.getClass().getSimpleName() + " игрока " + firstUser.getName() + " наносит урон " + unitForSecondUser.getClass().getSimpleName() + " игрока " + secondUser.getName());
+        System.out.println();
+        System.out.println("-------------");
+    }
+
+    public void getStartArcherAttack() {
+        System.out.println("Атакуют лучники");
+        System.out.println();
+        System.out.println("-------------");
+    }
 }

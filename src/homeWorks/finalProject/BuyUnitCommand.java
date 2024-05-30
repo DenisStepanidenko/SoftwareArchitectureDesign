@@ -28,7 +28,7 @@ public class BuyUnitCommand implements Command {
     }
 
     @Override
-    public void undo() {
+    public void  undo() {
         Stack<Unit> currentUnitStack = user.getAllUnits();
         if (currentUnitStack.isEmpty()) {
             System.out.println("Вы ещё не купили ни одного персонажа");

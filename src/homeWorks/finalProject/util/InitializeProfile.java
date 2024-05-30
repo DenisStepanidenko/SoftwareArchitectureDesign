@@ -78,7 +78,6 @@ public class InitializeProfile {
         /**
          * Теперь нужно попросить у пользователя конкретного юнита для покупки
          */
-
         String unitForBuy = input.getUnit(choiceForTypeUnit);
 
         /**

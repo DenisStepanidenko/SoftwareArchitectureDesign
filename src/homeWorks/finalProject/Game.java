@@ -2,6 +2,7 @@ package homeWorks.finalProject;
 
 import homeWorks.finalProject.baseUnit.Unit;
 import homeWorks.finalProject.baseUnit.rangeUnit.Archer;
+import homeWorks.finalProject.baseUnit.rangeUnit.Mage;
 import homeWorks.finalProject.util.InitializeProfile;
 import homeWorks.finalProject.util.Input;
 import homeWorks.finalProject.util.Output;
@@ -21,6 +22,8 @@ public class Game {
 
 
         // Логика игры
+        // нулевой этап : проверяем абилки
+
 
         // Первый этап: атакуют сначала юниты, стоящие на самых ближних позициях
         output.getToStringForArmy(firstUser, secondUser);
@@ -35,11 +38,31 @@ public class Game {
             return;
         }
 
+
         // После meleeAttack выводим текущее состояние армии
         output.getToStringForArmy(firstUser, secondUser);
 
+
         // Второй этап: атакуют лучники
+        output.getStartArcherAttack();
         attackArchers();
+
+        // теперь нужно проверить, есть ли победитель
+        winner = isExistsWinner();
+        if (!winner.equals("None")) {
+            // есть победитель
+            output.getInfoAboutWinner(winner);
+            return;
+        }
+        // После meleeAttack выводим текущее состояние армии
+        output.getToStringForArmy(firstUser, secondUser);
+
+        //
+        //healerAction();
+
+        //
+        //mageAction();
+
 
     }
 
@@ -51,6 +74,51 @@ public class Game {
         initializeArchers(archerFirstUserListMap, firstUser, secondUser);
 
         // теперь нужно производить атаку лучниками первого игрока
+        initializeArchersAttack(archerFirstUserListMap, firstUser, secondUser);
+
+
+        // найдём всех лучников из отряда secondUser, и каждому сопоставить список юнитов, по которым он может ударить в зависимости от своего рэнж
+        Map<Archer, List<Unit>> archerSecondUserListMap = new HashMap<>();
+        initializeArchers(archerSecondUserListMap, secondUser, firstUser);
+
+        // теперь нужно производить атаку лучниками второго игрока
+        initializeArchersAttack(archerSecondUserListMap, secondUser, firstUser);
+    }
+
+    private void initializeArchersAttack(Map<Archer, List<Unit>> archers, User owner, User userAttacked) {
+        for (Map.Entry<Archer, List<Unit>> entry : archers.entrySet()) {
+            Archer archer = entry.getKey();
+            List<Unit> units = entry.getValue();
+            if (units.isEmpty()) {
+                continue;
+            }
+            // теперь нужно выстрелить из лука в рандомного юнита
+            Random random = new Random();
+            int index = random.nextInt(units.size());
+            archer.rangeAction(units.get(index));
+
+            // выводим сообщение о том, что была произведена атака лучником
+            output.getInfoAboutAttack(owner, userAttacked, archer, units.get(index));
+
+
+            // теперь нужно проверить, убили ли мы его
+            if (units.get(index).getCurrentHealthPoint() <= 0) {
+                // мы должны его удалить из стека
+
+                // удаляем его из стека юнитов
+                userAttacked.getAllUnits().remove(units.get(index));
+
+                // далее мы его должны удалить из списка юнитов всех лучников
+                deleteArcher(archers, units.get(index));
+            }
+        }
+    }
+
+    private void deleteArcher(Map<Archer, List<Unit>> archers, Unit unit) {
+        for (Map.Entry<Archer, List<Unit>> entry : archers.entrySet()) {
+            List<Unit> unitList = entry.getValue();
+            unitList.remove(unit);
+        }
     }
 
     private void initializeArchers(Map<Archer, List<Unit>> archerListMap, User owner, User userAttacked) {
@@ -65,7 +133,7 @@ public class Game {
                 range = range - (army.size() - i - 1);
                 if (range > 0) {
                     List<Unit> currentUnitListForArcher = new ArrayList<>();
-                    for (int j = userAttacked.getAllUnits().size() - 1; j > (userAttacked.getAllUnits().size() - 1) - range; j--) {
+                    for (int j = userAttacked.getAllUnits().size() - 1; (j > (userAttacked.getAllUnits().size() - 1) - range) && j >= 0; j--) {
                         currentUnitListForArcher.add(userAttacked.getAllUnits().get(j));
                     }
                     archerListMap.put(currentArcher, currentUnitListForArcher);
@@ -88,6 +156,7 @@ public class Game {
         Unit unitForSecondUser = secondUser.getAllUnits().peek();
 
         unitForFirstUser.meleeAttack(unitForSecondUser);
+        output.getInfoAboutAttack(firstUser, secondUser, unitForFirstUser, unitForSecondUser);
         // теперь нужно проверить, жив ли юнит второго игрока
         if (unitForSecondUser.getCurrentHealthPoint() <= 0) {
             // нужно заканчивать атаку ближникам, выведем информацию, кто кого убил
@@ -98,7 +167,7 @@ public class Game {
 
         // теперь если юнит второго игрока выжил, то он наносит урон юнита первого игрока
         unitForSecondUser.meleeAttack(unitForFirstUser);
-
+        output.getInfoAboutAttack(secondUser, firstUser, unitForSecondUser, unitForFirstUser);
         // теперь нужно проверить, жив ли юнит первого игрока
         if (unitForFirstUser.getCurrentHealthPoint() <= 0) {
             output.getInfoAboutKill(secondUser, firstUser, unitForSecondUser, unitForFirstUser);

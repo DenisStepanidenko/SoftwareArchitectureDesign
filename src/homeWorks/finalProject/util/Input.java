@@ -10,7 +10,7 @@ public class Input {
     public String getName() {
         while (true) {
             try {
-                System.out.println("Для начала игры, введите своё никнейм");
+                System.out.println("Для начала игры, введите свой никнейм");
                 Scanner scanner = new Scanner(System.in);
                 String name = scanner.nextLine();
                 if (name == null || name.isEmpty()) {

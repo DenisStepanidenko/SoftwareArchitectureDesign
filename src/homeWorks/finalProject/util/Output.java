@@ -57,8 +57,20 @@ public class Output {
         System.out.println("-------------");
     }
 
+    public void getInfoAboutHealing(User firstUser, Unit healer, Unit healed) {
+        System.out.println("хилер игрока " + firstUser.getName() + " лечит " + healed.getClass().getSimpleName());
+        System.out.println();
+        System.out.println("-------------");
+    }
+
     public void getStartArcherAttack() {
         System.out.println("Атакуют лучники");
+        System.out.println();
+        System.out.println("-------------");
+    }
+
+    public void getStartHealerAct() {
+        System.out.println("Ходят хиллеры");
         System.out.println();
         System.out.println("-------------");
     }

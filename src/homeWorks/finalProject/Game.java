@@ -1,8 +1,11 @@
 package homeWorks.finalProject;
 
 import homeWorks.finalProject.baseUnit.Unit;
+import homeWorks.finalProject.baseUnit.meleeUnit.HeavyUnit;
+import homeWorks.finalProject.baseUnit.meleeUnit.LightUnit;
 import homeWorks.finalProject.baseUnit.rangeUnit.Archer;
 import homeWorks.finalProject.baseUnit.rangeUnit.Mage;
+import homeWorks.finalProject.buffUnit.BuffAttackHeavy;
 import homeWorks.finalProject.util.InitializeProfile;
 import homeWorks.finalProject.util.Input;
 import homeWorks.finalProject.util.Output;
@@ -57,12 +60,31 @@ public class Game {
         // После meleeAttack выводим текущее состояние армии
         output.getToStringForArmy(firstUser, secondUser);
 
-        //
-        //healerAction();
 
-        //
-        //mageAction();
 
+
+    }
+
+    private void checkingForAbility(User user) {
+        Stack<Unit> units = user.getAllUnits();
+        // мы должны проверить армию user на возможное наличие buff
+        for (int i = 0; i < units.size() - 1; i++) {
+            if ((units.get(i) instanceof LightUnit) && (units.get(i + 1) instanceof HeavyUnit)) {
+                // мы должны units.get(i+1) сделать абилку
+                Random random = new Random();
+
+                // генерируем абилку, для этого генерируем рандомное число от 1 до 3
+                int variant = random.nextInt(3) + 1;
+
+                switch (variant){
+                    case 1:
+                        // делаем абилку на атаку
+                        Unit unit = units.get(i + 1);
+                        unit = new BuffAttackHeavy(unit.getMaxHealth() , unit.getCurrentHealthPoint() , unit.getAttack() , unit.getDefense() , unit.getCost() , unit.getDodge());
+                        //output.getInfoAboutAbility(user , BuffAttackHeavy.);
+                }
+            }
+        }
 
     }
 

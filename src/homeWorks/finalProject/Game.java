@@ -63,7 +63,6 @@ public class Game {
         // После rangeAttack выводим текущее состояние армии
         output.getToStringForArmy(firstUser, secondUser);
 
-
         //
         output.getStartHealerAct();
         actHealers();
@@ -72,11 +71,13 @@ public class Game {
         output.getToStringForArmy(firstUser, secondUser);
 
         //
-        //actMages();
+        output.getStartMageAct();
+        actMages();
 
-
-
+        // После клонирования выводим текущее состояние армии
+        output.getToStringForArmy(firstUser, secondUser);
     }
+
 
     private void checkingForAbility(User user) {
         Stack<Unit> units = user.getAllUnits();
@@ -89,26 +90,27 @@ public class Game {
                 // генерируем абилку, для этого генерируем рандомное число от 1 до 3
                 int variant = random.nextInt(3) + 1;
                 Unit unit;
-                switch (variant){
+                switch (variant) {
                     case 1:
                         // делаем абилку на атаку
                         unit = units.get(i + 1);
-                        unit = new BuffAttackHeavy(unit.getMaxHealth() , unit.getCurrentHealthPoint() , unit.getAttack() , unit.getDefense() , unit.getCost() , unit.getDodge());
-                        output.getInfoAboutAbility(user , BuffAttackHeavy.class.getSimpleName());
+                        unit = new BuffAttackHeavy(unit.getMaxHealth(), unit.getCurrentHealthPoint(), unit.getAttack(), unit.getDefense(), unit.getCost(), unit.getDodge());
+                        output.getInfoAboutAbility(user, BuffAttackHeavy.class.getSimpleName());
                         break;
                     case 2:
                         // делаем абилку на защиту
                         unit = units.get(i + 1);
-                        unit = new BuffDefenseHeavy(unit.getMaxHealth() , unit.getCurrentHealthPoint() , unit.getAttack() , unit.getDefense() , unit.getCost() , unit.getDodge());
-                        output.getInfoAboutAbility(user , BuffDefenseHeavy.class.getSimpleName());
+                        unit = new BuffDefenseHeavy(unit.getMaxHealth(), unit.getCurrentHealthPoint(), unit.getAttack(), unit.getDefense(), unit.getCost(), unit.getDodge());
+                        output.getInfoAboutAbility(user, BuffDefenseHeavy.class.getSimpleName());
                         break;
                     case 3:
                         // делаем абилку на уклонение
                         unit = units.get(i + 1);
-                        unit = new BuffDodgeHeavy(unit.getMaxHealth() , unit.getCurrentHealthPoint() , unit.getAttack() , unit.getDefense() , unit.getCost() , unit.getDodge());
-                        output.getInfoAboutAbility(user , BuffDodgeHeavy.class.getSimpleName());
+                        unit = new BuffDodgeHeavy(unit.getMaxHealth(), unit.getCurrentHealthPoint(), unit.getAttack(), unit.getDefense(), unit.getCost(), unit.getDodge());
+                        output.getInfoAboutAbility(user, BuffDodgeHeavy.class.getSimpleName());
                         break;
                 }
+
             }
         }
 
@@ -132,6 +134,25 @@ public class Game {
 
         // теперь нужно производить лечение хиллерами второго игрока
         initializeHealersAction(healerSecondUserListMap, secondUser);
+    }
+
+    private void actMages() {
+        // нужно найти каждого мага из обоих отрядов и произвести клонирование
+
+        // найдём всех магов из отряда firstUser, и каждому сопоставим список юнитов, которых он может клонировать в зависимости от своего рэнжа
+        Map<Mage, List<Unit>> mageFirstUserListMap = new HashMap<>();
+        initializeMages(mageFirstUserListMap, firstUser);
+
+        // теперь нужно производить клонирование магами первого игрока
+        initializeMagesAction(mageFirstUserListMap, firstUser);
+
+
+        // найдём всех магов из отряда secondUser, и каждому сопоставим список юнитов, которых он может клонировать в зависимости от своего рэнжа
+        Map<Mage, List<Unit>> mageSecondUserListMap = new HashMap<>();
+        initializeMages(mageSecondUserListMap, secondUser);
+
+        // теперь нужно производить клонирование магами второго игрока
+        initializeMagesAction(mageSecondUserListMap, secondUser);
     }
 
     private void attackArchers() {
@@ -200,6 +221,24 @@ public class Game {
         }
     }
 
+    private void initializeMagesAction(Map<Mage, List<Unit>> mages, User owner) {
+        for (Map.Entry<Mage, List<Unit>> entry : mages.entrySet()) {
+            Mage mage = entry.getKey();
+            List<Unit> units = entry.getValue();
+            if (units.isEmpty()) {
+                continue;
+            }
+            // теперь нужно клонировать рандомного юнита
+            Random random = new Random();
+            int index = random.nextInt(units.size());
+            mage.rangeAction(units.get(index));
+
+            // выводим сообщение о том, что было произведено клонирование
+            output.getInfoAboutCloning(owner, mage, units.get(index));
+
+        }
+    }
+
     private void deleteArcher(Map<Archer, List<Unit>> archers, Unit unit) {
         for (Map.Entry<Archer, List<Unit>> entry : archers.entrySet()) {
             List<Unit> unitList = entry.getValue();
@@ -249,6 +288,35 @@ public class Game {
                     currentUnitListForHealer.add(army.get(k));
                 }
                 healerListMap.put(currentHealer, currentUnitListForHealer);
+
+            }
+        }
+    }
+
+    private void initializeMages(Map<Mage, List<Unit>> mageListMap, User owner) {
+        Stack<Unit> army = owner.getAllUnits();
+        for (int i = 0; i < army.size() - 1; i++) {
+            if (army.get(i) instanceof Mage) {
+                Mage currentMage = (Mage) army.get(i);
+
+                // теперь нужно для данного mage найти список юнитов, которых он может клонировать
+                int range = currentMage.getRange();
+
+
+                List<Unit> currentUnitListForMage = new ArrayList<>();
+                for (int j = i - range; (j < i) && (j >= 0); j++) {
+                    // Нужна проверка, что юнита можно клонировать
+                    if (army.get(j) instanceof LightUnit || army.get(j) instanceof Archer)
+                        currentUnitListForMage.add(army.get(j));
+                }
+
+                for (int k = i + 1; (k <= i + range) && (k < army.size()); k++) {
+                    // Нужна проверка, что юнита можно клонировать
+                    if (army.get(k) instanceof LightUnit || army.get(k) instanceof Archer)
+                        currentUnitListForMage.add(army.get(k));
+                }
+
+                mageListMap.put(currentMage, currentUnitListForMage);
 
             }
         }

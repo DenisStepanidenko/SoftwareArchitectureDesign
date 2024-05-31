@@ -26,7 +26,11 @@ public class Game {
         initializeProfile.loadData(firstUser);
         initializeProfile.loadData(secondUser);
 
+        checkingForAbility(firstUser);
+        checkingForAbility(secondUser);
+
         output.getToStringForArmy(firstUser, secondUser);
+        System.exit(0);
         while (true) {
             // Логика игры
             // нулевой этап : проверяем абилки
@@ -46,6 +50,8 @@ public class Game {
 
 
             // После meleeAttack выводим текущее состояние армии
+            checkingForAbility(firstUser);
+            checkingForAbility(secondUser);
             output.getToStringForArmy(firstUser, secondUser);
 
 
@@ -62,6 +68,8 @@ public class Game {
                 return;
             }
             // После rangeAttack выводим текущее состояние армии
+            checkingForAbility(firstUser);
+            checkingForAbility(secondUser);
             output.getToStringForArmy(firstUser, secondUser);
 
             Thread.sleep(7000);
@@ -77,6 +85,8 @@ public class Game {
             actMages();
 
             // После клонирования выводим текущее состояние армии
+            checkingForAbility(firstUser);
+            checkingForAbility(secondUser);
             output.getToStringForArmy(firstUser, secondUser);
         }
 

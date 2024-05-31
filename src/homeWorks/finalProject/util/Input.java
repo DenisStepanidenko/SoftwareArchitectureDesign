@@ -3,6 +3,7 @@ package homeWorks.finalProject.util;
 import homeWorks.finalProject.User;
 import homeWorks.finalProject.baseUnit.Unit;
 
+import java.sql.SQLOutput;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -71,7 +72,15 @@ public class Input {
     public String getTypeOfUnit() {
         while (true) {
             try {
-                System.out.println("Какого вида юнита вы хотите купить");
+                System.out.println("Цены:\n" +
+                        "RangeUnit: Archer - 12 монет,\n" +
+                        "           Mage - 16 монет,\n" +
+                        "           Healer - 16 монет.\n" +
+                        "MeleeUnit: Light - 4 монеты,\n" +
+                        "           Heavy - 12 монет.");
+                System.out.println();
+                System.out.println("Какого вида юнита вы хотите купить?");
+                System.out.println();
                 System.out.println("1.RangeUnit");
                 System.out.println("2.MeleeUnit");
                 Scanner scanner = new Scanner(System.in);

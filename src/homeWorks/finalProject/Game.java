@@ -28,7 +28,9 @@ public class Game {
 
         checkingForAbility(firstUser);
         checkingForAbility(secondUser);
+
         output.getToStringForArmy(firstUser, secondUser);
+
         while (true) {
             // Логика игры
             // нулевой этап : проверяем абилки

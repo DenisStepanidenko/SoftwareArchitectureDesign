@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Stack;
 
 public class Test {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 //        //Unit unit = new LightUnit(1, 2, 3, 4, 5);
 //        //Mage mage = new Mage(1,2,3,4,5,6,7);
 //

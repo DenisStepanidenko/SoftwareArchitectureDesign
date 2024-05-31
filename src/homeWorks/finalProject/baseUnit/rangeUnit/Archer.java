@@ -6,13 +6,20 @@ import homeWorks.finalProject.baseUnit.Unit;
 import java.util.Random;
 
 public class Archer extends RangeUnit implements Clonable {
+    private final int rangeAttack;
 
-    public Archer(int maxHealth, int currentHealthPoint, int attack, int defense, int cost, int dodge, int range) {
+    public Archer(int maxHealth, int currentHealthPoint, int attack, int defense, int cost, int dodge, int range, int rangeAttack) {
         super(maxHealth, currentHealthPoint, attack, defense, cost, dodge, range);
+        this.rangeAttack = rangeAttack;
     }
 
     public Archer(Archer archer) {
         super(archer);
+        this.rangeAttack = archer.getRangeAttack();
+    }
+
+    public int getRangeAttack() {
+        return rangeAttack;
     }
 
     @Override
@@ -36,7 +43,7 @@ public class Archer extends RangeUnit implements Clonable {
 
     @Override
     public Unit rangeAction(Unit unit) {
-        int commonDamage = this.getAttack() * generatedCriticalDamageForRange() - unit.getDodge() * unit.generatedDodge();
+        int commonDamage = this.getRangeAttack() * generatedCriticalDamageForRange() - unit.getDodge() * unit.generatedDodge();
         if (commonDamage < 0) {
             return null;
         }

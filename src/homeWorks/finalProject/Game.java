@@ -20,65 +20,66 @@ public class Game {
     private final User secondUser = new User("", 100, new Stack<>());
     private final InitializeProfile initializeProfile = new InitializeProfile(new Input());
     private final Output output = new Output();
-    private int permission;
 
-    public void start() {
+    public void start() throws InterruptedException {
         // инициализация всех персонажей
         initializeProfile.loadData(firstUser);
         initializeProfile.loadData(secondUser);
 
-
-
-
-        // Логика игры
-        // нулевой этап : проверяем абилки
-
-
-        // Первый этап: атакуют сначала юниты, стоящие на самых ближних позициях
         output.getToStringForArmy(firstUser, secondUser);
-        output.getStartMeleeAttack();
-        meleeAttack();
+        while (true) {
+            // Логика игры
+            // нулевой этап : проверяем абилки
 
-        // теперь нужно проверить, есть ли победитель
-        String winner = isExistsWinner();
-        if (!winner.equals("None")) {
-            // есть победитель
-            output.getInfoAboutWinner(winner);
-            return;
+            Thread.sleep(7000);
+            // Первый этап: атакуют сначала юниты, стоящие на самых ближних позициях
+            output.getStartMeleeAttack();
+            meleeAttack();
+
+            // теперь нужно проверить, есть ли победитель
+            String winner = isExistsWinner();
+            if (!winner.equals("None")) {
+                // есть победитель
+                output.getInfoAboutWinner(winner);
+                return;
+            }
+
+
+            // После meleeAttack выводим текущее состояние армии
+            output.getToStringForArmy(firstUser, secondUser);
+
+
+            Thread.sleep(7000);
+            // Второй этап: атакуют лучники
+            output.getStartArcherAttack();
+            attackArchers();
+
+            // теперь нужно проверить, есть ли победитель
+            winner = isExistsWinner();
+            if (!winner.equals("None")) {
+                // есть победитель
+                output.getInfoAboutWinner(winner);
+                return;
+            }
+            // После rangeAttack выводим текущее состояние армии
+            output.getToStringForArmy(firstUser, secondUser);
+
+            Thread.sleep(7000);
+            //
+            output.getStartHealerAct();
+            actHealers();
+
+            // После лечения выводим текущее состояние армии
+            output.getToStringForArmy(firstUser, secondUser);
+
+            //
+            output.getStartMageAct();
+            actMages();
+
+            // После клонирования выводим текущее состояние армии
+            output.getToStringForArmy(firstUser, secondUser);
         }
 
-
-        // После meleeAttack выводим текущее состояние армии
-        output.getToStringForArmy(firstUser, secondUser);
-
-
-        // Второй этап: атакуют лучники
-        output.getStartArcherAttack();
-        attackArchers();
-
-        // теперь нужно проверить, есть ли победитель
-        winner = isExistsWinner();
-        if (!winner.equals("None")) {
-            // есть победитель
-            output.getInfoAboutWinner(winner);
-            return;
-        }
-        // После rangeAttack выводим текущее состояние армии
-        output.getToStringForArmy(firstUser, secondUser);
-
-        //
-        output.getStartHealerAct();
-        actHealers();
-
-        // После лечения выводим текущее состояние армии
-        output.getToStringForArmy(firstUser, secondUser);
-
-        //
-        output.getStartMageAct();
-        actMages();
-
-        // После клонирования выводим текущее состояние армии
-        output.getToStringForArmy(firstUser, secondUser);
     }
 
 
@@ -120,7 +121,7 @@ public class Game {
     }
 
 
-    private void actHealers() {
+    private void actHealers() throws InterruptedException {
         // нужно найти каждого хиллера из обоих отрядов и произвести лечение
 
         // найдём всех хиллеров из отряда firstUser, и каждому сопоставим список юнитов, которых он может полечить в зависимости от своего рэнжа
@@ -130,6 +131,7 @@ public class Game {
         // теперь нужно производить лечение хиллерами первого игрока
         initializeHealersAction(healerFirstUserListMap, firstUser);
 
+        Thread.sleep(1000);
 
         // найдём всех хиллеров из отряда secondUser, и каждому сопоставим список юнитов, которых он может полечить в зависимости от своего рэнжа
         Map<Healer, List<Unit>> healerSecondUserListMap = new HashMap<>();
@@ -139,7 +141,7 @@ public class Game {
         initializeHealersAction(healerSecondUserListMap, secondUser);
     }
 
-    private void actMages() {
+    private void actMages() throws InterruptedException {
         // нужно найти каждого мага из обоих отрядов и произвести клонирование
 
         // найдём всех магов из отряда firstUser, и каждому сопоставим список юнитов, которых он может клонировать в зависимости от своего рэнжа
@@ -149,6 +151,7 @@ public class Game {
         // теперь нужно производить клонирование магами первого игрока
         initializeMagesAction(mageFirstUserListMap, firstUser);
 
+        Thread.sleep(1000);
 
         // найдём всех магов из отряда secondUser, и каждому сопоставим список юнитов, которых он может клонировать в зависимости от своего рэнжа
         Map<Mage, List<Unit>> mageSecondUserListMap = new HashMap<>();
@@ -158,18 +161,19 @@ public class Game {
         initializeMagesAction(mageSecondUserListMap, secondUser);
     }
 
-    private void attackArchers() {
+    private void attackArchers() throws InterruptedException {
         // нужно найти каждого лучника из обоих отрядов и произвести урон
 
-        // найдём всех лучников из отряда firstUser, и каждому сопоставить список юнитов, по которым он может ударить в зависимости от своего рэнжа
+        // найдём всех лучников из отряда firstUser, и каждому сопоставим список юнитов, по которым он может ударить в зависимости от своего рэнжа
         Map<Archer, List<Unit>> archerFirstUserListMap = new HashMap<>();
         initializeArchers(archerFirstUserListMap, firstUser, secondUser);
 
         // теперь нужно производить атаку лучниками первого игрока
         initializeArchersAttack(archerFirstUserListMap, firstUser, secondUser);
 
+        Thread.sleep(1000);
 
-        // найдём всех лучников из отряда secondUser, и каждому сопоставить список юнитов, по которым он может ударить в зависимости от своего рэнж
+        // найдём всех лучников из отряда secondUser, и каждому сопоставим список юнитов, по которым он может ударить в зависимости от своего рэнж
         Map<Archer, List<Unit>> archerSecondUserListMap = new HashMap<>();
         initializeArchers(archerSecondUserListMap, secondUser, firstUser);
 
@@ -195,6 +199,9 @@ public class Game {
 
             // теперь нужно проверить, убили ли мы его
             if (units.get(index).getCurrentHealthPoint() <= 0) {
+                // выводим сообщение о том, что лучник убил юнита
+                output.getInfoAboutKill(owner, userAttacked, archer, units.get(index));
+
                 // мы должны его удалить из стека
 
                 // удаляем его из стека юнитов
@@ -234,7 +241,8 @@ public class Game {
             // теперь нужно клонировать рандомного юнита
             Random random = new Random();
             int index = random.nextInt(units.size());
-            mage.rangeAction(units.get(index));
+            Unit unit = mage.rangeAction(units.get(index));
+            owner.getAllUnits().add(unit);
 
             // выводим сообщение о том, что было произведено клонирование
             output.getInfoAboutCloning(owner, mage, units.get(index));
@@ -282,13 +290,17 @@ public class Game {
 
                 List<Unit> currentUnitListForHealer = new ArrayList<>();
                 for (int j = i - range; (j < i) && (j >= 0); j++) {
-                    // Нужна проверка, что юнит не является Гуляй-городом
-                    currentUnitListForHealer.add(army.get(j));
+                    // Нужна проверка, что юнит не является Гуляй-городом и что он ранен
+                    if (army.get(j).getCurrentHealthPoint() < army.get(j).getMaxHealth()) {
+                        currentUnitListForHealer.add(army.get(j));
+                    }
                 }
 
                 for (int k = i + 1; (k <= i + range) && (k < army.size()); k++) {
-                    // Нужна проверка, что юнит не является Гуляй-городом
-                    currentUnitListForHealer.add(army.get(k));
+                    // Нужна проверка, что юнит не является Гуляй-городом и что он ранен
+                    if (army.get(k).getCurrentHealthPoint() < army.get(k).getMaxHealth()) {
+                        currentUnitListForHealer.add(army.get(k));
+                    }
                 }
                 healerListMap.put(currentHealer, currentUnitListForHealer);
 
@@ -334,12 +346,13 @@ public class Game {
         return "None";
     }
 
-    private void meleeAttack() {
+    private void meleeAttack() throws InterruptedException {
         Unit unitForFirstUser = firstUser.getAllUnits().peek();
         Unit unitForSecondUser = secondUser.getAllUnits().peek();
 
         unitForFirstUser.meleeAttack(unitForSecondUser);
         output.getInfoAboutAttack(firstUser, secondUser, unitForFirstUser, unitForSecondUser);
+        Thread.sleep(1000);
         // теперь нужно проверить, жив ли юнит второго игрока
         if (unitForSecondUser.getCurrentHealthPoint() <= 0) {
             // нужно заканчивать атаку ближникам, выведем информацию, кто кого убил

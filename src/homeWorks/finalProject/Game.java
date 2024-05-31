@@ -103,24 +103,24 @@ public class Game {
 
                 // генерируем абилку, для этого генерируем рандомное число от 1 до 3
                 int variant = random.nextInt(3) + 1;
-                Unit unit;
+                Unit buff;
                 switch (variant) {
                     case 1:
                         // делаем абилку на атаку
-                        unit = units.get(i + 1);
-                        unit = new BuffAttackHeavy(unit.getMaxHealth(), unit.getCurrentHealthPoint(), unit.getAttack(), unit.getDefense(), unit.getCost(), unit.getDodge());
+                        buff = new BuffAttackHeavy(units.get(i + 1).getMaxHealth(), units.get(i + 1).getCurrentHealthPoint(), units.get(i + 1).getAttack(), units.get(i + 1).getDefense(), units.get(i + 1).getCost(), units.get(i + 1).getDodge());
+                        units.set(i + 1, buff);
                         output.getInfoAboutAbility(user, BuffAttackHeavy.class.getSimpleName());
                         break;
                     case 2:
                         // делаем абилку на защиту
-                        unit = units.get(i + 1);
-                        unit = new BuffDefenseHeavy(unit.getMaxHealth(), unit.getCurrentHealthPoint(), unit.getAttack(), unit.getDefense(), unit.getCost(), unit.getDodge());
+                        buff = new BuffDefenseHeavy(units.get(i + 1).getMaxHealth(), units.get(i + 1).getCurrentHealthPoint(), units.get(i + 1).getAttack(), units.get(i + 1).getDefense(), units.get(i + 1).getCost(), units.get(i + 1).getDodge());
+                        units.set(i + 1, buff);
                         output.getInfoAboutAbility(user, BuffDefenseHeavy.class.getSimpleName());
                         break;
                     case 3:
                         // делаем абилку на уклонение
-                        unit = units.get(i + 1);
-                        unit = new BuffDodgeHeavy(unit.getMaxHealth(), unit.getCurrentHealthPoint(), unit.getAttack(), unit.getDefense(), unit.getCost(), unit.getDodge());
+                        buff = new BuffDodgeHeavy(units.get(i + 1).getMaxHealth(), units.get(i + 1).getCurrentHealthPoint(), units.get(i + 1).getAttack(), units.get(i + 1).getDefense(), units.get(i + 1).getCost(), units.get(i + 1).getDodge());
+                        units.set(i + 1, buff);
                         output.getInfoAboutAbility(user, BuffDodgeHeavy.class.getSimpleName());
                         break;
                 }

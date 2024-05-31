@@ -74,4 +74,8 @@ public class Output {
         System.out.println();
         System.out.println("-------------");
     }
+
+    public void getInfoAboutAbility(User user, String simpleName) {
+        System.out.println(user.getName() + " получил бафф в виде " + simpleName);
+    }
 }

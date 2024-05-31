@@ -7,6 +7,8 @@ import homeWorks.finalProject.baseUnit.rangeUnit.Archer;
 import homeWorks.finalProject.baseUnit.rangeUnit.Healer;
 import homeWorks.finalProject.baseUnit.rangeUnit.Mage;
 import homeWorks.finalProject.buffUnit.BuffAttackHeavy;
+import homeWorks.finalProject.buffUnit.BuffDefenseHeavy;
+import homeWorks.finalProject.buffUnit.BuffDodgeHeavy;
 import homeWorks.finalProject.util.InitializeProfile;
 import homeWorks.finalProject.util.Input;
 import homeWorks.finalProject.util.Output;
@@ -86,13 +88,26 @@ public class Game {
 
                 // генерируем абилку, для этого генерируем рандомное число от 1 до 3
                 int variant = random.nextInt(3) + 1;
-
+                Unit unit;
                 switch (variant){
                     case 1:
                         // делаем абилку на атаку
-                        Unit unit = units.get(i + 1);
+                        unit = units.get(i + 1);
                         unit = new BuffAttackHeavy(unit.getMaxHealth() , unit.getCurrentHealthPoint() , unit.getAttack() , unit.getDefense() , unit.getCost() , unit.getDodge());
-                        //output.getInfoAboutAbility(user , BuffAttackHeavy.);
+                        output.getInfoAboutAbility(user , BuffAttackHeavy.class.getSimpleName());
+                        break;
+                    case 2:
+                        // делаем абилку на защиту
+                        unit = units.get(i + 1);
+                        unit = new BuffDefenseHeavy(unit.getMaxHealth() , unit.getCurrentHealthPoint() , unit.getAttack() , unit.getDefense() , unit.getCost() , unit.getDodge());
+                        output.getInfoAboutAbility(user , BuffDefenseHeavy.class.getSimpleName());
+                        break;
+                    case 3:
+                        // делаем абилку на уклонение
+                        unit = units.get(i + 1);
+                        unit = new BuffDodgeHeavy(unit.getMaxHealth() , unit.getCurrentHealthPoint() , unit.getAttack() , unit.getDefense() , unit.getCost() , unit.getDodge());
+                        output.getInfoAboutAbility(user , BuffDodgeHeavy.class.getSimpleName());
+                        break;
                 }
             }
         }

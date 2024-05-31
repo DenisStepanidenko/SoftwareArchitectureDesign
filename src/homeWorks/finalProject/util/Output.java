@@ -56,7 +56,11 @@ public class Output {
         System.out.println();
         System.out.println("-------------");
     }
-
+    public void getInfoAboutCloning(User firstUser, Unit mage, Unit cloned) {
+        System.out.println("маг игрока " + firstUser.getName() + " клонирует " + cloned.getClass().getSimpleName());
+        System.out.println();
+        System.out.println("-------------");
+    }
     public void getInfoAboutHealing(User firstUser, Unit healer, Unit healed) {
         System.out.println("хилер игрока " + firstUser.getName() + " лечит " + healed.getClass().getSimpleName());
         System.out.println();
@@ -74,8 +78,13 @@ public class Output {
         System.out.println();
         System.out.println("-------------");
     }
-
+    public void getStartMageAct() {
+        System.out.println("Ходят маги");
+        System.out.println();
+        System.out.println("-------------");
+    }
     public void getInfoAboutAbility(User user, String simpleName) {
         System.out.println(user.getName() + " получил бафф в виде " + simpleName);
     }
+
 }

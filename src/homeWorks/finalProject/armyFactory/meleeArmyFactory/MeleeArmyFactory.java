@@ -10,9 +10,9 @@ public class MeleeArmyFactory implements ArmyFactory<MeleeUnit> {
     @Override
     public MeleeUnit create(String typeOfUnit) {
         if ("Light".equalsIgnoreCase(typeOfUnit)) {
-            return new LightUnit(1, 50, 1, 0, 5, 0);
+            return new LightUnit(5, 5, 3, 1, 4, 2);
         } else if ("Heavy".equalsIgnoreCase(typeOfUnit)) {
-            return new HeavyUnit(1, 50, 1, 0, 5, 0);
+            return new HeavyUnit(8, 8, 5, 2, 12, 1);
         }
         return null;
     }

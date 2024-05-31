@@ -2,6 +2,7 @@ package homeWorks.finalProject;
 
 import homeWorks.finalProject.baseUnit.Unit;
 import homeWorks.finalProject.baseUnit.rangeUnit.Archer;
+import homeWorks.finalProject.baseUnit.rangeUnit.Healer;
 import homeWorks.finalProject.baseUnit.rangeUnit.Mage;
 import homeWorks.finalProject.util.InitializeProfile;
 import homeWorks.finalProject.util.Input;
@@ -54,18 +55,40 @@ public class Game {
             output.getInfoAboutWinner(winner);
             return;
         }
-        // После meleeAttack выводим текущее состояние армии
+        // После rangeAttack выводим текущее состояние армии
         output.getToStringForArmy(firstUser, secondUser);
 
         //
-        //healerAction();
+        output.getStartHealerAct();
+        actHealers();
+
+        // После лечения выводим текущее состояние армии
+        output.getToStringForArmy(firstUser, secondUser);
 
         //
-        //mageAction();
+        //actMages();
 
 
     }
 
+    private void actHealers() {
+        // нужно найти каждого хиллера из обоих отрядов и произвести лечение
+
+        // найдём всех хиллеров из отряда firstUser, и каждому сопоставим список юнитов, которых он может полечить в зависимости от своего рэнжа
+        Map<Healer, List<Unit>> healerFirstUserListMap = new HashMap<>();
+        initializeHealers(healerFirstUserListMap, firstUser);
+
+        // теперь нужно производить лечение хиллерами первого игрока
+        initializeHealersAction(healerFirstUserListMap, firstUser);
+
+
+        // найдём всех хиллеров из отряда secondUser, и каждому сопоставим список юнитов, которых он может полечить в зависимости от своего рэнжа
+        Map<Healer, List<Unit>> healerSecondUserListMap = new HashMap<>();
+        initializeHealers(healerSecondUserListMap, secondUser);
+
+        // теперь нужно производить лечение хиллерами второго игрока
+        initializeHealersAction(healerSecondUserListMap, secondUser);
+    }
     private void attackArchers() {
         // нужно найти каждого лучника из обоих отрядов и произвести урон
 
@@ -114,6 +137,24 @@ public class Game {
         }
     }
 
+    private void initializeHealersAction(Map<Healer, List<Unit>> healers, User owner) {
+        for (Map.Entry<Healer, List<Unit>> entry : healers.entrySet()) {
+            Healer healer = entry.getKey();
+            List<Unit> units = entry.getValue();
+            if (units.isEmpty()) {
+                continue;
+            }
+            // теперь нужно полечить рандомного юнита
+            Random random = new Random();
+            int index = random.nextInt(units.size());
+            healer.rangeAction(units.get(index));
+
+            // выводим сообщение о том, что было произведено лечение
+            output.getInfoAboutHealing(owner, healer, units.get(index));
+
+        }
+    }
+
     private void deleteArcher(Map<Archer, List<Unit>> archers, Unit unit) {
         for (Map.Entry<Archer, List<Unit>> entry : archers.entrySet()) {
             List<Unit> unitList = entry.getValue();
@@ -138,6 +179,32 @@ public class Game {
                     }
                     archerListMap.put(currentArcher, currentUnitListForArcher);
                 }
+            }
+        }
+    }
+
+    private void initializeHealers(Map<Healer, List<Unit>> healerListMap, User owner) {
+        Stack<Unit> army = owner.getAllUnits();
+        for (int i = 0; i < army.size() - 1; i++) {
+            if (army.get(i) instanceof Healer) {
+                Healer currentHealer = (Healer) army.get(i);
+
+                // теперь нужно для данного healer найти список юнитов, которых он может полечить
+                int range = currentHealer.getRange();
+
+
+                List<Unit> currentUnitListForHealer = new ArrayList<>();
+                for (int j = i - range; (j < i) && (j >= 0); j++) {
+                    // Нужна проверка, что юнит не является Гуляй-городом
+                    currentUnitListForHealer.add(army.get(j));
+                }
+
+                for (int k = i + 1; (k <= i + range) && (k < army.size()); k++) {
+                    // Нужна проверка, что юнит не является Гуляй-городом
+                    currentUnitListForHealer.add(army.get(k));
+                }
+                healerListMap.put(currentHealer, currentUnitListForHealer);
+
             }
         }
     }

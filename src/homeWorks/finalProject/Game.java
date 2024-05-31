@@ -97,7 +97,7 @@ public class Game {
         Stack<Unit> units = user.getAllUnits();
         // мы должны проверить армию user на возможное наличие buff
         for (int i = 0; i < units.size() - 1; i++) {
-            if ((units.get(i) instanceof LightUnit) && (units.get(i + 1) instanceof HeavyUnit)) {
+            if ((units.get(i) instanceof LightUnit) && (units.get(i + 1) instanceof HeavyUnit) && (!(units.get(i + 1) instanceof BuffAttackHeavy)) && (!(units.get(i + 1) instanceof BuffDodgeHeavy)) && (!(units.get(i + 1) instanceof BuffDefenseHeavy))) {
                 // мы должны units.get(i+1) сделать абилку
                 Random random = new Random();
 

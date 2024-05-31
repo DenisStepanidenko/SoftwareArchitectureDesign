@@ -37,6 +37,9 @@ public class Archer extends RangeUnit implements Clonable {
     @Override
     public Unit rangeAction(Unit unit) {
         int commonDamage = this.getAttack() * generatedCriticalDamageForRange() - unit.getDodge() * unit.generatedDodge();
+        if (commonDamage < 0) {
+            return null;
+        }
         int currentHp = unit.getCurrentHealthPoint();
 
         unit.setCurrentHealthPoint(currentHp - commonDamage);
@@ -47,7 +50,6 @@ public class Archer extends RangeUnit implements Clonable {
     public Unit clone() {
         return new Archer(this);
     }
-
 
 
 }

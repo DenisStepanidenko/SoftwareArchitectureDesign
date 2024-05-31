@@ -1,12 +1,12 @@
 package homeWorks.finalProject.baseUnit;
 
 public abstract class Unit {
-    private final int maxHealth;
+    private int maxHealth;
     private int currentHealthPoint;
-    private final int attack;
-    private final int defense;
-    private final int cost;
-    private final int dodge;
+    private int attack;
+    private int defense;
+    private int cost;
+    private int dodge;
 
 
     @Override

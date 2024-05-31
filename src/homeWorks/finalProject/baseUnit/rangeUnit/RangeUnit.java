@@ -24,6 +24,9 @@ public abstract class RangeUnit extends Unit implements Range {
     public void meleeAttack(Unit unit) {
         // формула для атаки
         int commonDamage = this.getAttack() - unit.getDefense() - unit.generatedDodge() * unit.getDodge();
+        if(commonDamage < 0){
+            return;
+        }
         int currentHp = unit.getCurrentHealthPoint();
         unit.setCurrentHealthPoint(currentHp - commonDamage);
     }

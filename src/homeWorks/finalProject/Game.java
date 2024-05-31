@@ -20,11 +20,14 @@ public class Game {
     private final User secondUser = new User("", 100, new Stack<>());
     private final InitializeProfile initializeProfile = new InitializeProfile(new Input());
     private final Output output = new Output();
+    private int permission;
 
     public void start() {
         // инициализация всех персонажей
         initializeProfile.loadData(firstUser);
         initializeProfile.loadData(secondUser);
+
+
 
 
         // Логика игры

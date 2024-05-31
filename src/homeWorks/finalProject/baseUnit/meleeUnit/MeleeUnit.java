@@ -31,6 +31,9 @@ public abstract class MeleeUnit extends Unit {
     public void meleeAttack(Unit unit) {
         // формула для атаки
         int commonDamage = this.getAttack() * generateCriticalDamageForMeleeAttack() - unit.getDefense() - unit.generatedDodge() * unit.getDodge();
+        if(commonDamage < 0){
+            return;
+        }
         int currentHp = unit.getCurrentHealthPoint();
         unit.setCurrentHealthPoint(currentHp - commonDamage);
     }

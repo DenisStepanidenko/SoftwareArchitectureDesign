@@ -9,6 +9,6 @@ public class BuffAttackHeavy extends HeavyUnit {
 
     @Override
     public int getAttack() {
-        return super.getAttack() + 5;
+        return super.getAttack() + 3;
     }
 }

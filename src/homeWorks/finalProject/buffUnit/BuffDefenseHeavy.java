@@ -11,6 +11,6 @@ public class BuffDefenseHeavy extends HeavyUnit {
     @Override
     public int getDefense() {
         //System.out.println("Улучшенная защита");
-        return super.getDefense() + 5;
+        return super.getDefense() + 2;
     }
 }

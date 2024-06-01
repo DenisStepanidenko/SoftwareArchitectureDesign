@@ -3,7 +3,6 @@ package homeWorks.finalProject.util;
 import homeWorks.finalProject.User;
 import homeWorks.finalProject.baseUnit.Unit;
 
-import java.sql.SQLOutput;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -146,6 +145,28 @@ public class Input {
                     System.out.println("Произошла ошибка, введите выбор ещё раз.");
                 }
 
+            }
+        }
+    }
+
+    public int getPermission() {
+        while (true) {
+            try {
+                System.out.println("Включить логирование?");
+                System.out.println("1.Да");
+                System.out.println("2.Нет");
+                Scanner scanner = new Scanner(System.in);
+                int choice = scanner.nextInt();
+                if (choice != 1 && choice != 2) {
+                    throw new Exception();
+                }
+                System.out.println();
+                System.out.println("-------------");
+                return choice;
+            } catch (Exception e) {
+                System.out.println("Произошла ошибка, введите ещё раз");
+                System.out.println();
+                System.out.println("-------------");
             }
         }
     }

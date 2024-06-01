@@ -6,14 +6,19 @@ import homeWorks.finalProject.baseUnit.Unit;
 import java.util.*;
 
 public class Output {
-    public void getToStringForArmy(User firstUser, User secondUser) {
-        System.out.println("Текущая ситуация армий (" + firstUser.getName() + "/" + secondUser.getName() + ")");
-        System.out.print(getDescription(getToStringForArmy(firstUser)) + "        ");
+    public String getToStringForArmy(User firstUser, User secondUser) {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Текущая ситуация армий (" + firstUser.getName() + "/" + secondUser.getName() + ")");
+        builder.append("\n");
+        builder.append(getDescription(getToStringForArmy(firstUser)) + "        ");
         List<String> secondUserArmy = getToStringForArmy(secondUser);
         Collections.reverse(secondUserArmy);
-        System.out.println(getDescription(secondUserArmy));
-        System.out.println();
-        System.out.println("-------------");
+        builder.append(getDescription(secondUserArmy));
+        builder.append("\n");
+        builder.append("-------------");
+
+
+        return builder.toString();
     }
 
     private List<String> getToStringForArmy(User user) {
@@ -34,57 +39,108 @@ public class Output {
         return builder.toString();
     }
 
-    public void getInfoAboutKill(User firstUser, User secondUser, Unit unitForFirstUser, Unit unitForSecondUser) {
-        System.out.println(unitForFirstUser.getClass().getSimpleName() + " игрока " + firstUser.getName() + " уничтожает " + unitForSecondUser.getClass().getSimpleName() + " игрока " + secondUser.getName());
-        System.out.println();
-        System.out.println("-------------");
+
+    public String getInfoAboutKill(User firstUser, User secondUser, Unit unitForFirstUser, Unit unitForSecondUser) {
+        StringBuilder builder = new StringBuilder();
+        builder.append(unitForFirstUser.getClass().getSimpleName() + " игрока " + firstUser.getName() + " уничтожает " + unitForSecondUser.getClass().getSimpleName() + " игрока " + secondUser.getName());
+        builder.append("\n");
+        builder.append("-------------");
+        return builder.toString();
 
     }
 
-    public void getStartMeleeAttack() {
-        System.out.println("Атакуют юниты, которые стоят на первых позициях...");
-        System.out.println();
-        System.out.println("-------------");
+    public String getStartMeleeAttack() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Атакуют юниты, которые стоят на первых позициях...");
+        builder.append("\n");
+        builder.append("-------------");
+
+
+
+        return builder.toString();
     }
 
-    public void getInfoAboutWinner(String winner) {
-        System.out.println("Пользователь " + winner + " одержал победу!");
+    public String getInfoAboutWinner(String winner) {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Пользователь " + winner + " одержал победу!");
+
+        return builder.toString();
     }
 
-    public void getInfoAboutAttack(User firstUser, User secondUser, Unit unitForFirstUser, Unit unitForSecondUser) {
-        System.out.println(unitForFirstUser.getClass().getSimpleName() + " игрока " + firstUser.getName() + " наносит урон " + unitForSecondUser.getClass().getSimpleName() + " игрока " + secondUser.getName());
-        System.out.println();
-        System.out.println("-------------");
-    }
-    public void getInfoAboutCloning(User firstUser, Unit mage, Unit cloned) {
-        System.out.println(mage.getClass().getSimpleName() + " игрока " + firstUser.getName() + " клонирует " + cloned.getClass().getSimpleName());
-        System.out.println();
-        System.out.println("-------------");
-    }
-    public void getInfoAboutHealing(User firstUser, Unit healer, Unit healed) {
-        System.out.println(healer.getClass().getSimpleName() + " игрока " + firstUser.getName() + " лечит " + healed.getClass().getSimpleName());
-        System.out.println();
-        System.out.println("-------------");
+    public String getInfoAboutAttack(User firstUser, User secondUser, Unit unitForFirstUser, Unit unitForSecondUser) {
+        StringBuilder builder = new StringBuilder();
+        builder.append(unitForFirstUser.getClass().getSimpleName() + " игрока " + firstUser.getName() + " наносит урон " + unitForSecondUser.getClass().getSimpleName() + " игрока " + secondUser.getName());
+        builder.append("\n");
+        builder.append("-------------");
+
+
+
+        return builder.toString();
     }
 
-    public void getStartArcherAttack() {
-        System.out.println("Атакуют лучники");
-        System.out.println();
-        System.out.println("-------------");
+    public String getInfoAboutCloning(User firstUser, Unit mage, Unit cloned) {
+        StringBuilder builder = new StringBuilder();
+        builder.append(mage.getClass().getSimpleName() + " игрока " + firstUser.getName() + " клонирует " + cloned.getClass().getSimpleName());
+        builder.append("\n");
+        builder.append("-------------");
+
+
+
+
+        return builder.toString();
     }
 
-    public void getStartHealerAct() {
-        System.out.println("Ходят хилеры");
-        System.out.println();
-        System.out.println("-------------");
+    public String getInfoAboutHealing(User firstUser, Unit healer, Unit healed) {
+        StringBuilder builder = new StringBuilder();
+        builder.append(healer.getClass().getSimpleName() + " игрока " + firstUser.getName() + " лечит " + healed.getClass().getSimpleName());
+        builder.append("\n");
+        builder.append("-------------");
+
+
+
+        return builder.toString();
     }
-    public void getStartMageAct() {
-        System.out.println("Ходят маги");
-        System.out.println();
-        System.out.println("-------------");
+
+    public String getStartArcherAttack() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Атакуют лучники");
+        builder.append("\n");
+        builder.append("-------------");
+
+
+
+        return builder.toString();
     }
-    public void getInfoAboutAbility(User user, String simpleName) {
-        System.out.println(user.getName() + " получил бафф в виде " + simpleName);
+
+    public String getStartHealerAct() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Ходят хилеры");
+        builder.append("\n");
+        builder.append("-------------");
+
+
+
+        return builder.toString();
+    }
+
+    public String getStartMageAct() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Ходят маги");
+        builder.append("\n");
+        builder.append("-------------");
+
+
+        return builder.toString();
+    }
+
+    public String getInfoAboutAbility(User user, String simpleName) {
+        StringBuilder builder = new StringBuilder();
+        builder.append(user.getName() + " получил бафф в виде " + simpleName);
+
+
+
+        return builder.toString();
+
     }
 
 }

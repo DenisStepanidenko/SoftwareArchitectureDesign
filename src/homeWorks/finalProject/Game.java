@@ -3,6 +3,7 @@ package homeWorks.finalProject;
 import homeWorks.finalProject.baseUnit.Unit;
 import homeWorks.finalProject.baseUnit.meleeUnit.HeavyUnit;
 import homeWorks.finalProject.baseUnit.meleeUnit.LightUnit;
+import homeWorks.finalProject.baseUnit.meleeUnit.Wagenburg;
 import homeWorks.finalProject.baseUnit.rangeUnit.Archer;
 import homeWorks.finalProject.baseUnit.rangeUnit.Healer;
 import homeWorks.finalProject.baseUnit.rangeUnit.Mage;
@@ -311,14 +312,14 @@ public class Game {
                 List<Unit> currentUnitListForHealer = new ArrayList<>();
                 for (int j = i - range; (j < i) && (j >= 0); j++) {
                     // Нужна проверка, что юнит не является Гуляй-городом и что он ранен
-                    if (army.get(j).getCurrentHealthPoint() < army.get(j).getMaxHealth()) {
+                    if (!(army.get(j) instanceof Wagenburg) && army.get(j).getCurrentHealthPoint() < army.get(j).getMaxHealth()) {
                         currentUnitListForHealer.add(army.get(j));
                     }
                 }
 
                 for (int k = i + 1; (k <= i + range) && (k < army.size()); k++) {
                     // Нужна проверка, что юнит не является Гуляй-городом и что он ранен
-                    if (army.get(k).getCurrentHealthPoint() < army.get(k).getMaxHealth()) {
+                    if (!(army.get(k) instanceof Wagenburg) && army.get(k).getCurrentHealthPoint() < army.get(k).getMaxHealth()) {
                         currentUnitListForHealer.add(army.get(k));
                     }
                 }

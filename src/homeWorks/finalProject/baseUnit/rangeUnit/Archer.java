@@ -1,5 +1,6 @@
 package homeWorks.finalProject.baseUnit.rangeUnit;
 
+import homeWorks.finalProject.baseUnit.meleeUnit.Wagenburg;
 import homeWorks.finalProject.otherInterfaces.Clonable;
 import homeWorks.finalProject.baseUnit.Unit;
 
@@ -43,6 +44,9 @@ public class Archer extends RangeUnit implements Clonable {
 
     @Override
     public Unit rangeAction(Unit unit) {
+        if (unit instanceof Wagenburg) {
+            return null;
+        }
         int commonDamage = this.getRangeAttack() * generatedCriticalDamageForRange() - unit.getDodge() * unit.generatedDodge();
         if (commonDamage < 0) {
             return null;

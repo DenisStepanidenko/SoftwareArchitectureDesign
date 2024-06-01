@@ -76,7 +76,8 @@ public class Input {
                         "           Mage - 16 монет,\n" +
                         "           Healer - 16 монет.\n" +
                         "MeleeUnit: Light - 4 монеты,\n" +
-                        "           Heavy - 12 монет.");
+                        "           Heavy - 12 монет,\n" +
+                        "           Wagenburg - 10 монет.");
                 System.out.println();
                 System.out.println("Какого вида юнита вы хотите купить?");
                 System.out.println();
@@ -107,14 +108,17 @@ public class Input {
                     System.out.println("Какого юнита вы хотите купить");
                     System.out.println("1.Light");
                     System.out.println("2.Heavy");
+                    System.out.println("3.Wagenburg");
                     Scanner scanner = new Scanner(System.in);
 
                     int choice = scanner.nextInt();
-                    if (choice != 1 && choice != 2) {
+                    if (choice != 1 && choice != 2 && choice != 3) {
                         throw new Exception();
                     }
                     if (choice == 1) {
                         return "Light";
+                    } else if (choice == 3) {
+                        return "Wagenburg";
                     }
                     return "Heavy";
                 } catch (Exception e) {

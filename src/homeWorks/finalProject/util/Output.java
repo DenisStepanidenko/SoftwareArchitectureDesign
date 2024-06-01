@@ -2,6 +2,8 @@ package homeWorks.finalProject.util;
 
 import homeWorks.finalProject.User;
 import homeWorks.finalProject.baseUnit.Unit;
+import homeWorks.finalProject.baseUnit.meleeUnit.Wagenburg;
+import homeWorks.finalProject.baseUnit.rangeUnit.Archer;
 
 import java.util.*;
 
@@ -62,18 +64,23 @@ public class Output {
 
     public String getInfoAboutWinner(String winner) {
         StringBuilder builder = new StringBuilder();
-        builder.append("Пользователь " + winner + " одержал победу!");
+        builder.append("Пользователь " + winner + " одержал победу!\n\n");
 
         return builder.toString();
     }
 
     public String getInfoAboutAttack(User firstUser, User secondUser, Unit unitForFirstUser, Unit unitForSecondUser) {
         StringBuilder builder = new StringBuilder();
-        builder.append(unitForFirstUser.getClass().getSimpleName() + " игрока " + firstUser.getName() + " наносит урон " + unitForSecondUser.getClass().getSimpleName() + " игрока " + secondUser.getName());
-        builder.append("\n");
-        builder.append("-------------");
-
-
+        if (unitForFirstUser instanceof Archer && unitForSecondUser instanceof Wagenburg) {
+            builder.append(unitForFirstUser.getClass().getSimpleName() + " игрока " + firstUser.getName() + " обстреливает " + unitForSecondUser.getClass().getSimpleName() + " игрока " + secondUser.getName() + ". Это абсолютно неэффективно!");
+            builder.append("\n");
+            builder.append("-------------");
+        }
+        else if (!(unitForFirstUser instanceof Wagenburg)) {
+            builder.append(unitForFirstUser.getClass().getSimpleName() + " игрока " + firstUser.getName() + " наносит урон " + unitForSecondUser.getClass().getSimpleName() + " игрока " + secondUser.getName());
+            builder.append("\n");
+            builder.append("-------------");
+        }
 
         return builder.toString();
     }

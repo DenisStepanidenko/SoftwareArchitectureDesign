@@ -1,0 +1,99 @@
+Denich получил бафф в виде BuffDefenseHeavyТекущая ситуация армий (Matvey/Denich)
+Healer(4) Mage(3) Wagenburg(10)         BuffDefenseHeavy(8) LightUnit(5) Wagenburg(10) Archer(5) 
+-------------Атакуют юниты, которые стоят на первых позициях...
+-------------BuffDefenseHeavy игрока Denich наносит урон Wagenburg игрока Matvey
+-------------Текущая ситуация армий (Matvey/Denich)
+Healer(4) Mage(3) Wagenburg(9)         BuffDefenseHeavy(8) LightUnit(5) Wagenburg(10) Archer(5) 
+-------------Атакуют лучники
+-------------Archer игрока Denich обстреливает Wagenburg игрока Matvey. Это абсолютно неэффективно!
+-------------Текущая ситуация армий (Matvey/Denich)
+Healer(4) Mage(3) Wagenburg(9)         BuffDefenseHeavy(8) LightUnit(5) Wagenburg(10) Archer(5) 
+-------------Ходят хилеры
+-------------Текущая ситуация армий (Matvey/Denich)
+Healer(4) Mage(3) Wagenburg(9)         BuffDefenseHeavy(8) LightUnit(5) Wagenburg(10) Archer(5) 
+-------------Ходят маги
+-------------Текущая ситуация армий (Matvey/Denich)
+Healer(4) Mage(3) Wagenburg(9)         BuffDefenseHeavy(8) LightUnit(5) Wagenburg(10) Archer(5) 
+-------------Атакуют юниты, которые стоят на первых позициях...
+-------------BuffDefenseHeavy игрока Denich наносит урон Wagenburg игрока Matvey
+-------------Текущая ситуация армий (Matvey/Denich)
+Healer(4) Mage(3) Wagenburg(3)         BuffDefenseHeavy(8) LightUnit(5) Wagenburg(10) Archer(5) 
+-------------Атакуют лучники
+-------------Archer игрока Denich обстреливает Wagenburg игрока Matvey. Это абсолютно неэффективно!
+-------------Текущая ситуация армий (Matvey/Denich)
+Healer(4) Mage(3) Wagenburg(3)         BuffDefenseHeavy(8) LightUnit(5) Wagenburg(10) Archer(5) 
+-------------Ходят хилеры
+-------------Текущая ситуация армий (Matvey/Denich)
+Healer(4) Mage(3) Wagenburg(3)         BuffDefenseHeavy(8) LightUnit(5) Wagenburg(10) Archer(5) 
+-------------Ходят маги
+-------------Текущая ситуация армий (Matvey/Denich)
+Healer(4) Mage(3) Wagenburg(3)         BuffDefenseHeavy(8) LightUnit(5) Wagenburg(10) Archer(5) 
+-------------Атакуют юниты, которые стоят на первых позициях...
+-------------BuffDefenseHeavy игрока Denich наносит урон Wagenburg игрока Matvey
+-------------Текущая ситуация армий (Matvey/Denich)
+Healer(4) Mage(3) Wagenburg(2)         BuffDefenseHeavy(8) LightUnit(5) Wagenburg(10) Archer(5) 
+-------------Атакуют лучники
+-------------Archer игрока Denich обстреливает Wagenburg игрока Matvey. Это абсолютно неэффективно!
+-------------Текущая ситуация армий (Matvey/Denich)
+Healer(4) Mage(3) Wagenburg(2)         BuffDefenseHeavy(8) LightUnit(5) Wagenburg(10) Archer(5) 
+-------------Ходят хилеры
+-------------Текущая ситуация армий (Matvey/Denich)
+Healer(4) Mage(3) Wagenburg(2)         BuffDefenseHeavy(8) LightUnit(5) Wagenburg(10) Archer(5) 
+-------------Ходят маги
+-------------Текущая ситуация армий (Matvey/Denich)
+Healer(4) Mage(3) Wagenburg(2)         BuffDefenseHeavy(8) LightUnit(5) Wagenburg(10) Archer(5) 
+-------------Атакуют юниты, которые стоят на первых позициях...
+-------------BuffDefenseHeavy игрока Denich наносит урон Wagenburg игрока Matvey
+-------------Текущая ситуация армий (Matvey/Denich)
+Healer(4) Mage(3) Wagenburg(1)         BuffDefenseHeavy(8) LightUnit(5) Wagenburg(10) Archer(5) 
+-------------Атакуют лучники
+-------------Archer игрока Denich обстреливает Wagenburg игрока Matvey. Это абсолютно неэффективно!
+-------------Текущая ситуация армий (Matvey/Denich)
+Healer(4) Mage(3) Wagenburg(1)         BuffDefenseHeavy(8) LightUnit(5) Wagenburg(10) Archer(5) 
+-------------Ходят хилеры
+-------------Текущая ситуация армий (Matvey/Denich)
+Healer(4) Mage(3) Wagenburg(1)         BuffDefenseHeavy(8) LightUnit(5) Wagenburg(10) Archer(5) 
+-------------Ходят маги
+-------------Текущая ситуация армий (Matvey/Denich)
+Healer(4) Mage(3) Wagenburg(1)         BuffDefenseHeavy(8) LightUnit(5) Wagenburg(10) Archer(5) 
+-------------Атакуют юниты, которые стоят на первых позициях...
+-------------BuffDefenseHeavy игрока Denich наносит урон Wagenburg игрока Matvey
+-------------BuffDefenseHeavy игрока Denich уничтожает Wagenburg игрока Matvey
+-------------Текущая ситуация армий (Matvey/Denich)
+Healer(4) Mage(3)         BuffDefenseHeavy(8) LightUnit(5) Wagenburg(10) Archer(5) 
+-------------Атакуют лучники
+-------------Archer игрока Denich наносит урон Mage игрока Matvey
+-------------Archer игрока Denich уничтожает Mage игрока Matvey
+-------------Текущая ситуация армий (Matvey/Denich)
+Healer(4)         BuffDefenseHeavy(8) LightUnit(5) Wagenburg(10) Archer(5) 
+-------------Ходят хилеры
+-------------Текущая ситуация армий (Matvey/Denich)
+Healer(4)         BuffDefenseHeavy(8) LightUnit(5) Wagenburg(10) Archer(5) 
+-------------Ходят маги
+-------------Текущая ситуация армий (Matvey/Denich)
+Healer(4)         BuffDefenseHeavy(8) LightUnit(5) Wagenburg(10) Archer(5) 
+-------------Атакуют юниты, которые стоят на первых позициях...
+-------------Healer игрока Matvey наносит урон BuffDefenseHeavy игрока Denich
+-------------BuffDefenseHeavy игрока Denich наносит урон Healer игрока Matvey
+-------------BuffDefenseHeavy игрока Denich уничтожает Healer игрока Matvey
+-------------Пользователь Denich одержал победу!Текущая ситуация армий (as/sdf)
+Mage(3)         HeavyUnit(8) 
+-------------Атакуют юниты, которые стоят на первых позициях...
+-------------Mage игрока as наносит урон HeavyUnit игрока sdf
+-------------HeavyUnit игрока sdf наносит урон Mage игрока as
+-------------HeavyUnit игрока sdf уничтожает Mage игрока as
+-------------Пользователь sdf одержал победу!Текущая ситуация армий (adsd/ghhj)
+Healer(4)         HeavyUnit(8) 
+-------------Атакуют юниты, которые стоят на первых позициях...
+-------------Healer игрока adsd наносит урон HeavyUnit игрока ghhj
+-------------HeavyUnit игрока ghhj наносит урон Healer игрока adsd
+-------------HeavyUnit игрока ghhj уничтожает Healer игрока adsd
+-------------Пользователь ghhj одержал победу!
+
+Текущая ситуация армий (Rsa/jkuy)
+HeavyUnit(8)         Mage(3) 
+-------------Атакуют юниты, которые стоят на первых позициях...
+-------------HeavyUnit игрока Rsa наносит урон Mage игрока jkuy
+-------------HeavyUnit игрока Rsa уничтожает Mage игрока jkuy
+-------------Пользователь Rsa одержал победу!
+

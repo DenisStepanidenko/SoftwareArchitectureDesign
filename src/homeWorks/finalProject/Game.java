@@ -20,16 +20,25 @@ public class Game {
     private final User secondUser = new User("", 100, new Stack<>());
     private final InitializeProfile initializeProfile = new InitializeProfile(new Input());
     private final Output output = new Output();
+    private final Input input = new Input();
+    private int permission;
+    UnitProxy unitProxy;
 
     public void start() throws InterruptedException {
         // инициализация всех персонажей
         initializeProfile.loadData(firstUser);
         initializeProfile.loadData(secondUser);
 
+        // спрашиваем про логирование
+        int permission = input.getPermission();
+        unitProxy = new UnitProxy(new Logger(), permission);
+
+        // проверяем на абилки
         checkingForAbility(firstUser);
         checkingForAbility(secondUser);
 
-        output.getToStringForArmy(firstUser, secondUser);
+        // выводим текущее состояние  армии
+        unitProxy.logAction(output.getToStringForArmy(firstUser, secondUser));
 
         while (true) {
             // Логика игры
@@ -37,14 +46,14 @@ public class Game {
 
             Thread.sleep(7000);
             // Первый этап: атакуют сначала юниты, стоящие на самых ближних позициях
-            output.getStartMeleeAttack();
+            unitProxy.logAction(output.getStartMeleeAttack());
             meleeAttack();
 
             // теперь нужно проверить, есть ли победитель
             String winner = isExistsWinner();
             if (!winner.equals("None")) {
                 // есть победитель
-                output.getInfoAboutWinner(winner);
+                unitProxy.logAction(output.getInfoAboutWinner(winner));
                 return;
             }
 
@@ -52,42 +61,42 @@ public class Game {
             // После meleeAttack выводим текущее состояние армии
             checkingForAbility(firstUser);
             checkingForAbility(secondUser);
-            output.getToStringForArmy(firstUser, secondUser);
-
+            unitProxy.logAction(output.getToStringForArmy(firstUser, secondUser));
 
             Thread.sleep(7000);
             // Второй этап: атакуют лучники
-            output.getStartArcherAttack();
+            unitProxy.logAction(output.getStartArcherAttack());
             attackArchers();
 
             // теперь нужно проверить, есть ли победитель
             winner = isExistsWinner();
             if (!winner.equals("None")) {
                 // есть победитель
-                output.getInfoAboutWinner(winner);
+                unitProxy.logAction(output.getInfoAboutWinner(winner));
                 return;
             }
             // После rangeAttack выводим текущее состояние армии
             checkingForAbility(firstUser);
             checkingForAbility(secondUser);
-            output.getToStringForArmy(firstUser, secondUser);
+            unitProxy.logAction(output.getToStringForArmy(firstUser, secondUser));
 
             Thread.sleep(7000);
             //
-            output.getStartHealerAct();
+            unitProxy.logAction(output.getStartHealerAct());
             actHealers();
 
             // После лечения выводим текущее состояние армии
-            output.getToStringForArmy(firstUser, secondUser);
+            unitProxy.logAction(output.getToStringForArmy(firstUser, secondUser));
+
 
             //
-            output.getStartMageAct();
+            unitProxy.logAction(output.getStartMageAct());
             actMages();
 
             // После клонирования выводим текущее состояние армии
             checkingForAbility(firstUser);
             checkingForAbility(secondUser);
-            output.getToStringForArmy(firstUser, secondUser);
+            unitProxy.logAction(output.getToStringForArmy(firstUser, secondUser));
         }
 
     }
@@ -109,19 +118,19 @@ public class Game {
                         // делаем абилку на атаку
                         buff = new BuffAttackHeavy(units.get(i + 1).getMaxHealth(), units.get(i + 1).getCurrentHealthPoint(), units.get(i + 1).getAttack(), units.get(i + 1).getDefense(), units.get(i + 1).getCost(), units.get(i + 1).getDodge());
                         units.set(i + 1, buff);
-                        output.getInfoAboutAbility(user, BuffAttackHeavy.class.getSimpleName());
+                        unitProxy.logAction( output.getInfoAboutAbility(user, BuffAttackHeavy.class.getSimpleName()));
                         break;
                     case 2:
                         // делаем абилку на защиту
                         buff = new BuffDefenseHeavy(units.get(i + 1).getMaxHealth(), units.get(i + 1).getCurrentHealthPoint(), units.get(i + 1).getAttack(), units.get(i + 1).getDefense(), units.get(i + 1).getCost(), units.get(i + 1).getDodge());
                         units.set(i + 1, buff);
-                        output.getInfoAboutAbility(user, BuffDefenseHeavy.class.getSimpleName());
+                        unitProxy.logAction(output.getInfoAboutAbility(user, BuffDefenseHeavy.class.getSimpleName()));
                         break;
                     case 3:
                         // делаем абилку на уклонение
                         buff = new BuffDodgeHeavy(units.get(i + 1).getMaxHealth(), units.get(i + 1).getCurrentHealthPoint(), units.get(i + 1).getAttack(), units.get(i + 1).getDefense(), units.get(i + 1).getCost(), units.get(i + 1).getDodge());
                         units.set(i + 1, buff);
-                        output.getInfoAboutAbility(user, BuffDodgeHeavy.class.getSimpleName());
+                        unitProxy.logAction(output.getInfoAboutAbility(user, BuffDodgeHeavy.class.getSimpleName()));
                         break;
                 }
 
@@ -204,13 +213,14 @@ public class Game {
             archer.rangeAction(units.get(index));
 
             // выводим сообщение о том, что была произведена атака лучником
-            output.getInfoAboutAttack(owner, userAttacked, archer, units.get(index));
+            unitProxy.logAction(output.getInfoAboutAttack(owner, userAttacked, archer, units.get(index)));
+
 
 
             // теперь нужно проверить, убили ли мы его
             if (units.get(index).getCurrentHealthPoint() <= 0) {
                 // выводим сообщение о том, что лучник убил юнита
-                output.getInfoAboutKill(owner, userAttacked, archer, units.get(index));
+                unitProxy.logAction(output.getInfoAboutKill(owner, userAttacked, archer, units.get(index)));
 
                 // мы должны его удалить из стека
 
@@ -236,7 +246,7 @@ public class Game {
             healer.rangeAction(units.get(index));
 
             // выводим сообщение о том, что было произведено лечение
-            output.getInfoAboutHealing(owner, healer, units.get(index));
+            unitProxy.logAction(output.getInfoAboutHealing(owner, healer, units.get(index)));
 
         }
     }
@@ -255,7 +265,7 @@ public class Game {
             owner.getAllUnits().add(unit);
 
             // выводим сообщение о том, что было произведено клонирование
-            output.getInfoAboutCloning(owner, mage, units.get(index));
+            unitProxy.logAction(output.getInfoAboutCloning(owner, mage, units.get(index)));
 
         }
     }
@@ -361,22 +371,22 @@ public class Game {
         Unit unitForSecondUser = secondUser.getAllUnits().peek();
 
         unitForFirstUser.meleeAttack(unitForSecondUser);
-        output.getInfoAboutAttack(firstUser, secondUser, unitForFirstUser, unitForSecondUser);
+        unitProxy.logAction(output.getInfoAboutAttack(firstUser, secondUser, unitForFirstUser, unitForSecondUser));
         Thread.sleep(1000);
         // теперь нужно проверить, жив ли юнит второго игрока
         if (unitForSecondUser.getCurrentHealthPoint() <= 0) {
             // нужно заканчивать атаку ближникам, выведем информацию, кто кого убил
-            output.getInfoAboutKill(firstUser, secondUser, unitForFirstUser, unitForSecondUser);
+            unitProxy.logAction( output.getInfoAboutKill(firstUser, secondUser, unitForFirstUser, unitForSecondUser));
             secondUser.getAllUnits().pop(); // удаляем юнита, которого мы только что убили
             return;
         }
 
         // теперь если юнит второго игрока выжил, то он наносит урон юнита первого игрока
         unitForSecondUser.meleeAttack(unitForFirstUser);
-        output.getInfoAboutAttack(secondUser, firstUser, unitForSecondUser, unitForFirstUser);
+        unitProxy.logAction(output.getInfoAboutAttack(secondUser, firstUser, unitForSecondUser, unitForFirstUser));
         // теперь нужно проверить, жив ли юнит первого игрока
         if (unitForFirstUser.getCurrentHealthPoint() <= 0) {
-            output.getInfoAboutKill(secondUser, firstUser, unitForSecondUser, unitForFirstUser);
+            unitProxy.logAction(output.getInfoAboutKill(secondUser, firstUser, unitForSecondUser, unitForFirstUser));
             firstUser.getAllUnits().pop(); // удаляем юнита, которого мы только что убили
         }
     }
